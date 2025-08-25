@@ -42,6 +42,12 @@ const { setupAngular } = require("../lib/angular");
   const pm = String(args.pm).toLowerCase();
   const useTS = String(args.lang).toLowerCase() === "ts";
 
+  // fail fast on bad framework (optional but recommended)
+  if (!["react-vite", "react-webpack", "angular"].includes(framework)) {
+    error(`Unknown framework: ${framework}. Use --framework react-vite|react-webpack|angular`);
+    process.exit(1);
+  }
+
   // Decide output parent folder by framework
   const root = args.root === "." ? process.cwd() : path.resolve(process.cwd(), args.root);
   const sub = framework === "angular"
@@ -49,6 +55,9 @@ const { setupAngular } = require("../lib/angular");
     : (framework === "react-webpack" ? path.join("React", "Webpack") : path.join("React", "Vite"));
   const parent = args.root === "." ? root : path.join(root, sub);
   fs.mkdirSync(parent, { recursive: true });
+
+  log(`Output parent: ${parent}`);
+  log(`Creating project at: ${path.join(parent, projectName)} (may rename if exists)`);
 
   // Handle existing target folder
   const onExists = String(args["on-exists"] || "prompt").toLowerCase();
@@ -58,12 +67,26 @@ const { setupAngular } = require("../lib/angular");
     onExists,
   });
 
+  log(`Target resolved: ${path.join(parent, finalName)} [on-exists=${onExists}, decision=${decision}]`);
+  
   process.chdir(parent);
   const pmCfg = pkgManager(pm);
 
-  if (framework === "react-vite") return setupReactVite(finalName, useTS, ui, args, pmCfg, log);
-  if (framework === "react-webpack") return setupReactWebpack(finalName, useTS, ui, args, pmCfg, log);
-  if (framework === "angular") return setupAngular(finalName, ui, pmCfg, args, log);
+ if (framework === "react-vite") {
+    setup_react_vite(finalName, useTS, ui, args, pmCfg);
+    log(`✅ Done. App at: ${path.join(parent, finalName)}`);
+    return;
+  }
+  if (framework === "react-webpack") {
+    setup_react_webpack(finalName, useTS, ui, args, pmCfg);
+    log(`✅ Done. App at: ${path.join(parent, finalName)}`);
+    return;
+  }
+  if (framework === "angular") {
+    setup_angular(finalName, ui, pmCfg, args);
+    log(`✅ Done. App at: ${path.join(parent, finalName)}`);
+    return;
+  }
 
   warn(`Unknown framework: ${framework}. Use --framework react-vite|react-webpack|angular`);
 })();

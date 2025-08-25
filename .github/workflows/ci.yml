@@ -13,7 +13,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [20, 22]
-        framework: [react-vite] # add react-webpack or angular later if you want
+        framework: [react-vite] # add react-webpack, angular later
+
     env:
       APP_NAME: ci-app
       UI: mui
@@ -47,25 +48,41 @@ jobs:
             --store "$STORE" \
             --test-unit "$UNIT_TEST" \
             --test-e2e "$E2E_TEST" \
+            --root Frontends \
             --on-exists overwrite
         shell: bash
 
       - name: Resolve APP_DIR
         run: |
           if [ "${{ matrix.framework }}" = "react-vite" ]; then
-            echo "APP_DIR=Frontends/React/Vite/$APP_NAME" >> $GITHUB_ENV
+            EXPECTED="Frontends/React/Vite/$APP_NAME"
           elif [ "${{ matrix.framework }}" = "react-webpack" ]; then
-            echo "APP_DIR=Frontends/React/Webpack/$APP_NAME" >> $GITHUB_ENV
+            EXPECTED="Frontends/React/Webpack/$APP_NAME"
           else
-            echo "APP_DIR=Frontends/Angular/$APP_NAME" >> $GITHUB_ENV
+            EXPECTED="Frontends/Angular/$APP_NAME"
+          fi
+
+          if [ -d "$EXPECTED" ]; then
+            echo "APP_DIR=$EXPECTED" >> $GITHUB_ENV
+          else
+            echo "Expected path not found: $EXPECTED"
+            echo "Searching workspace for '$APP_NAME'…"
+            FOUND=$(find . -type d -name "$APP_NAME" -not -path "*/node_modules/*" -print -quit)
+            if [ -n "$FOUND" ]; then
+              echo "Found at: $FOUND"
+              echo "APP_DIR=$FOUND" >> $GITHUB_ENV
+            else
+              echo "❌ Could not locate generated app directory."
+              echo "::group::Top-level"; ls -la; echo "::endgroup::"
+              echo "::group::Frontends (3 levels)"; find Frontends -maxdepth 3 -type d | sort || true; echo "::endgroup::"
+              exit 1
+            fi
           fi
         shell: bash
 
-      - name: Verify generated path exists
+      - name: Show resolved APP_DIR
         run: |
           echo "APP_DIR=${APP_DIR}"
-          echo "::group::Top-level tree"; ls -la; echo "::endgroup::"
-          echo "::group::Frontends (3 levels)"; find Frontends -maxdepth 3 -type d | sort || true; echo "::endgroup::"
           test -d "${APP_DIR}" || (echo "❌ ${APP_DIR} not found"; exit 1)
         shell: bash
 
@@ -96,7 +113,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm publish --access public
         env:
