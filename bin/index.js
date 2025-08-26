@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 // core helpers
-const { log, warn } = require("../lib/log");
+const { log, warn, error } = require("../lib/log");
 const { parseArgs, runInteractive } = require("../lib/args");
 const { pkgManager } = require("../lib/pkg-manager");
 const { ensureTargetDir } = require("../lib/target-dir");
@@ -61,10 +61,10 @@ const { setupAngular } = require("../lib/angular");
 
   // Handle existing target folder
   const onExists = String(args["on-exists"] || "prompt").toLowerCase();
-  const { finalName } = await ensureTargetDir({
+  const { finalName, decision } = await ensureTargetDir({
     parentDir: parent,
     projectName,
-    onExists,
+    onExists
   });
 
   log(`Target resolved: ${path.join(parent, finalName)} [on-exists=${onExists}, decision=${decision}]`);
@@ -73,17 +73,17 @@ const { setupAngular } = require("../lib/angular");
   const pmCfg = pkgManager(pm);
 
  if (framework === "react-vite") {
-    setup_react_vite(finalName, useTS, ui, args, pmCfg);
+    setupReactVite(finalName, useTS, ui, args, pmCfg);
     log(`✅ Done. App at: ${path.join(parent, finalName)}`);
     return;
   }
   if (framework === "react-webpack") {
-    setup_react_webpack(finalName, useTS, ui, args, pmCfg);
+    setupReactWebpack(finalName, useTS, ui, args, pmCfg);
     log(`✅ Done. App at: ${path.join(parent, finalName)}`);
     return;
   }
   if (framework === "angular") {
-    setup_angular(finalName, ui, pmCfg, args);
+    setupAngular(finalName, ui, pmCfg, args);
     log(`✅ Done. App at: ${path.join(parent, finalName)}`);
     return;
   }
