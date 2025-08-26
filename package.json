@@ -2,11 +2,12 @@
   "name": "polyfront-scaffold",
   "version": "1.0.0",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
+  "type": "commonjs",
+  "license": "MIT",
+  "author": "Nirmal Samaranayaka <nirmal.fullstack@gmail.com>",
   "bin": {
     "polyfront-scaffold": "bin/index.js"
   },
-  "type": "commonjs",
-  "license": "MIT",
   "keywords": [
     "react",
     "vite",
@@ -32,7 +33,6 @@
     "url": "https://github.com/NirmalSamaranayaka/polyfront-scaffold/issues"
   },
   "homepage": "https://github.com/NirmalSamaranayaka/polyfront-scaffold#readme",
-  "author": "Nirmal Samaranayaka <nirmal.fullstack@gmail.com>",
   "engines": {
     "node": ">=20.19"
   },
@@ -48,5 +48,8 @@
     "test": "node -e \"console.log('ok')\""
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }

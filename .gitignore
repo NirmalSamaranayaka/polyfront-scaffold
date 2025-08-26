@@ -5,3 +5,5 @@ dist
 npm-debug.log*
 yarn-error.log
 pnpm-debug.log
+Frontends/*
+!Frontends/.gitkeep

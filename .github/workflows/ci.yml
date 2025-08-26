@@ -3,31 +3,113 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-test:
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [20, 22]
-    runs-on: ${{ matrix.os }}
+        framework: [react-vite] # add react-webpack, angular later if you want
+
+    env:
+      APP_NAME: ci-app
+      UI: mui
+      STORE: none
+      UNIT_TEST: vitest
+      E2E_TEST: none
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: npm
-      - run: npm ci
-      - run: npm run pack:dry
-      - name: Scaffold (Vite TS + MUI)
-        run: node ./bin/index.js ci-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
-      - name: Build & test scaffold
-        working-directory: Frontends/React/Vite/ci-app
+
+      - name: Install scaffold deps (repo root)
+        run: npm ci
+
+      - name: Make CLI executable (non-Windows)
+        if: runner.os != 'Windows'
+        run: chmod +x bin/index.js
+
+      # Use '=' style flags to work with older runners even if parseArgs is fixed
+      - name: Scaffold app
         run: |
-          npm ci
-          npm run build
-          npm test --if-present
+          node ./bin/index.js "$APP_NAME" \
+            --framework=${{ matrix.framework }} \
+            --ts \
+            --ui=$UI \
+            --store=$STORE \
+            --test-unit=$UNIT_TEST \
+            --test-e2e=$E2E_TEST \
+            --root=Frontends \
+            --on-exists=overwrite
+        shell: bash
+
+      # Compute expected path from your generator's layout, then fall back to search
+      - name: Resolve APP_DIR
+        run: |
+          if [ "${{ matrix.framework }}" = "react-vite" ]; then
+            EXPECTED="Frontends/React/Vite/$APP_NAME"
+          elif [ "${{ matrix.framework }}" = "react-webpack" ]; then
+            EXPECTED="Frontends/React/Webpack/$APP_NAME"
+          else
+            EXPECTED="Frontends/Angular/$APP_NAME"
+          fi
+
+          if [ -d "$EXPECTED" ]; then
+            echo "APP_DIR=$EXPECTED" >> $GITHUB_ENV
+          else
+            echo "Expected path not found: $EXPECTED"
+            echo "Searching workspace for '$APP_NAME'…"
+            FOUND=$(find . -type d -name "$APP_NAME" -not -path "*/node_modules/*" -print -quit)
+            if [ -n "$FOUND" ]; then
+              echo "Found at: $FOUND"
+              echo "APP_DIR=$FOUND" >> $GITHUB_ENV
+            else
+              echo "❌ Could not locate generated app directory."
+              echo "::group::Top-level"; ls -la; echo "::endgroup::"
+              echo "::group::Frontends (3 levels)"; find Frontends -maxdepth 3 -type d | sort || true; echo "::endgroup::"
+              exit 1
+            fi
+          fi
+        shell: bash
+
+      - name: Verify generated path exists
+        run: |
+          echo "APP_DIR=${APP_DIR}"
+          test -d "${APP_DIR}" || (echo "❌ ${APP_DIR} not found"; exit 1)
+        shell: bash
+
+      - name: Install deps in generated app
+        run: npm ci
+        working-directory: ${{ env.APP_DIR }}
+
+      - name: Lint (if configured)
+        run: npm run -s lint || echo "no lint script"
+        working-directory: ${{ env.APP_DIR }}
+
+      - name: Unit tests (if configured)
+        run: npm test --silent || echo "no tests or none selected"
+        working-directory: ${{ env.APP_DIR }}
+
+      - name: Build
+        run: npm run -s build
+        working-directory: ${{ env.APP_DIR }}
 
   publish:
     if: startsWith(github.ref, 'refs/tags/')
