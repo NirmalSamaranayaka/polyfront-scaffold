@@ -52,7 +52,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 > Tip: keep alt text and short captions so the gallery is accessible.
 
 
-### 🖼️ Screenshots
+### 🖼️ MUI Screenshots
 
 <p align="center">
   <img src="docs/screenshots/mui-home.png" alt="Home page (React Vite + MUI)" width="880"><br/>
@@ -63,13 +63,35 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   <summary>More (placeholders you can add later)</summary>
 
   <p align="center">
-    <img src="docs/screenshots/mui-about.png" alt="About page" width="420">
-    <img src="docs/screenshots/mui-dashboard.png" alt="Dashboard page" width="420"><br/>
+    <img src="docs/screenshots/mui-about.png" alt="MUI About page" width="420">
+    <img src="docs/screenshots/mui-dashboard.png" alt="MUI Dashboard page" width="420"><br/>
     <em>About & Dashboard — example route-level screens for your app shell.</em>
   </p>
 
   <p align="center">
-    <img src="docs/screenshots/mui-profile.png" alt="Profile page" width="420">
+    <img src="docs/screenshots/mui-profile.png" alt="MUI Profile page" width="420">
+    <em>Profile (React)</em>
+  </p>
+</details>
+
+### 🖼️ Bootstrap Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/bootstrap-home.png" alt="Home page (React Vite + Bootstrap)" width="880"><br/>
+  <em>Home — React (Vite) + Bootstrap with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/bootstrap-about.png" alt="Bootstrap About page" width="420">
+    <img src="docs/screenshots/bootstrap-dashboard.png" alt="Bootstrap Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/bootstrap-profile.png" alt="Bootstrap Profile page" width="420">
     <em>Profile (React)</em>
   </p>
 </details>
