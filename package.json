@@ -48,7 +48,6 @@
     "test": "node -e \"console.log('ok')\""
   },
   "dependencies": {
-    "polyfront-scaffold": "^1.0.0"
   },
   "publishConfig": {
     "access": "public"
