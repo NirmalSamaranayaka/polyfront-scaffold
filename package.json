@@ -1,5 +1,5 @@
 {
-  "name": "polyfront-scaffold",
+  "name": "@nirmalsamaranayaka/polyfront-scaffold",
   "version": "1.0.0",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
   "type": "commonjs",
