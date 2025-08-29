@@ -98,9 +98,17 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 
 > **How to add**: save your PNGs into `docs/screenshots/` and update the file names above.
 
-## Install & Run (no global install needed)
+## Installation
 
-### Interactive wizard
+### 1️⃣ Global install (recommended)
+Install the CLI globally to run it from anywhere:
+
+```bash
+npm install -g polyfront-scaffold
+
+
+### 2️⃣ Local / no global install
+## Run directly from source:
 ```bash
 # PowerShell/CMD
 node .\bin\index.js --interactive
@@ -114,7 +122,7 @@ node ./bin/index.js --interactive
 node ./bin/index.js my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
 ```
 
-### Tarball (registry-style, no publish)
+### 3️⃣ Tarball (registry-style, local, no publish)
 ```bash
 npm pack
 # PowerShell/CMD
@@ -123,7 +131,20 @@ npx polyfront-scaffold@file:.\polyfront-scaffold-1.0.0.tgz my-app --framework re
 npx polyfront-scaffold@file:./polyfront-scaffold-1.0.0.tgz my-app --framework react-vite --ts --ui mui
 ```
 
-## Flags
+## Usage
+### 1️⃣ Interactive wizard
+
+Step-by-step setup:
+
+polyfront-scaffold --interactive
+
+### 2️⃣ Direct flags
+
+Scaffold a project directly without prompts:
+polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
+
+
+## CLI Flags
 - `--framework` → `react-vite` | `react-webpack` | `angular`
 - `--lang` / `--ts` / `--js`
 - `--ui` → React: `mui|bootstrap|tailwind|antd|chakra` — Angular: `material|bootstrap|tailwind|primeng`
@@ -168,7 +189,24 @@ npx polyfront-scaffold@file:./polyfront-scaffold-1.0.0.tgz my-app --framework re
   Angular/
 ```
 
-## Examples
+## Quick Start Examples
+
+# Scaffold React + Vite + MUI + TypeScript + Vitest
+polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
+
+# Scaffold Angular + Material + TypeScript
+polyfront-scaffold my-app --framework angular --ts --ui material --store none --test-unit jest --test-e2e cypress
+
+# Add tests only to an existing project
+polyfront-scaffold existing-app --only-tests --test-unit vitest --test-e2e none
+
+
+## Recommended Defaults (Copy-Paste)
+
+For a quick React + Vite + MUI + TypeScript + Vitest project:
+polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
+
+## Local / Start directly from git source:
 ```bash
 # Vite + TS + MUI + Vitest
 node ./bin/index.js portal --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none

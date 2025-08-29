@@ -1,5 +1,5 @@
 {
-  "name": "@nirmalsamaranayaka/polyfront-scaffold",
+  "name": "polyfront-scaffold",
   "version": "1.0.0",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
   "type": "commonjs",
@@ -47,8 +47,9 @@
     "pack:dry": "npm pack --dry-run",
     "test": "node -e \"console.log('ok')\""
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "polyfront-scaffold": "^1.0.0"
+  },
   "publishConfig": {
     "access": "public"
   }
