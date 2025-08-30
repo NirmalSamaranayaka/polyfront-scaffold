@@ -1,4 +1,4 @@
-## 1.0.0 — 2025-08-23
+## 0.0.1 — 2025-08-30
 - First release on GitHub (interactive wizard, cross‑platform).
 - React (Vite/Webpack) and Angular generators.
 - UI options (MUI, Bootstrap, Tailwind, Ant Design, Chakra UI; Angular Material/Bootstrap/Tailwind/PrimeNG).

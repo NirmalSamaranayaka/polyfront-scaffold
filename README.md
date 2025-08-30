@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.1)
+# polyfront-scaffold (v0.0.2)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -14,7 +14,8 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 - **Dates**: moment/dayjs/date-fns/none
 - **Testing**: Jest or Vitest; E2E via Cypress or Playwright
 - **Env files**: `.env.development` / `.env.test` / `.env.production` / `.env.example`
-- **Folder structure**: `src/{api,assets,components,context,features,hooks,i18n,layout,pages,routes,services,store,styles,tests,utils}`
+- **Folder structure**: `src/{api,assets,components,context,features,hooks,i18n,layout,
+                          pages,routes,services,store,styles,tests,utils}`
 - Works on **Windows/macOS/Linux** (no bash-only commands)
 - Node **>= 20.19** (CI tests Node 20 & 22 on Ubuntu/Windows/macOS)
 
@@ -126,9 +127,9 @@ node ./bin/index.js my-app --framework react-vite --ts --ui mui --store none --t
 ```bash
 npm pack
 # PowerShell/CMD
-npx polyfront-scaffold@file:.\polyfront-scaffold-1.0.0.tgz my-app --framework react-vite --ts --ui mui
+npx polyfront-scaffold@file:.\polyfront-scaffold-{{version}}.tgz my-app --framework react-vite --ts --ui mui
 # macOS/Linux
-npx polyfront-scaffold@file:./polyfront-scaffold-1.0.0.tgz my-app --framework react-vite --ts --ui mui
+npx polyfront-scaffold@file:./polyfront-scaffold-{{version}}.tgz my-app --framework react-vite --ts --ui mui
 ```
 
 ## Usage
@@ -274,9 +275,9 @@ This repo ships `.github/workflows/ci.yml`:
 
 ```bash
 # bump version in package.json
-git commit -am "chore(release): v1.0.0"
-git tag v1.0.0
-git push origin v1.0.0
+git commit -am "chore(release): v0.0.2"
+git tag v0.0.2
+git push origin v0.0.2
 ```
 ---
 
