@@ -2,7 +2,7 @@
 
 This document tracks near-term improvements and where contributions help most.
 
-## 1.1.0 (planned)
+## 0.1.0 (planned)
 - ✅ MUI path verified (Vite/Webpack)
 - 🧪 Solidify experimental React presets:
   - Bootstrap: verify CSS import + sample components render
@@ -19,7 +19,7 @@ This document tracks near-term improvements and where contributions help most.
   - `useToggle`, `useFetchExample` (React Query variant)
   - `date` utils parity across moment/dayjs/date-fns + tests
 
-## 1.2.0 (nice-to-have)
+## 0.2.0 (nice-to-have)
 - Add “style adapters” abstraction to reduce duplication
 - Optional `--rsc` or Next.js template starter
 - Minimal Redux/MobX examples in `features/` with tests
