@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.3)
+# polyfront-scaffold (v0.0.4)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -97,7 +97,30 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
+### 🖼️ Tailwind Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/tailwind-home.png" alt="Home page (React Vite + Tailwind)" width="880"><br/>
+  <em>Home — React (Vite) + Tailwind with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/tailwind-about.png" alt="Tailwind About page" width="420">
+    <img src="docs/screenshots/tailwind-dashboard.png" alt="Tailwind Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/tailwind-profile.png" alt="Tailwind Profile page" width="420">
+    <em>Profile (React)</em>
+  </p>
+</details>
+
 > **How to add**: save your PNGs into `docs/screenshots/` and update the file names above.
+
 
 ## Installation
 
