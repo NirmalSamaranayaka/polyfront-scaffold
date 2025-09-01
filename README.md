@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.2)
+# polyfront-scaffold (v1.0.0)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -275,9 +275,9 @@ This repo ships `.github/workflows/ci.yml`:
 
 ```bash
 # bump version in package.json
-git commit -am "chore(release): v0.0.2"
-git tag v0.0.2
-git push origin v0.0.2
+git commit -am "chore(release): v1.0.0"
+git tag v1.0.0
+git push origin v1.0.0
 ```
 ---
 
