@@ -13,3 +13,7 @@
 - Integrated i18n custom hooks and LanguageContext for layout language support.
 - Added language selector to the header and sidebar menu translations.
 - Enabled Swedish (Sweden) and සිංහල (Sri Lanka) languages in menu items.
+
+## 1.0.2 — 2025-09-01
+- Improved JS scaffolding for React(Vite + Webpack) MUI, Bootstrap, and Tailwind.
+- Updated CHANGELOG with each version.
