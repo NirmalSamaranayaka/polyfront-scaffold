@@ -7,3 +7,9 @@
 - Testing runners: Jest or Vitest; E2E: Cypress or Playwright.
 - `--only-tests` to retrofit tests into existing projects.
 - Updated README files and documentation.
+
+## 1.0.1 — 2025-08-31
+- Updated TS Tailwind scaffold templates.
+- Integrated i18n custom hooks and LanguageContext for layout language support.
+- Added language selector to the header and sidebar menu translations.
+- Enabled Swedish (Sweden) and සිංහල (Sri Lanka) languages in menu items.

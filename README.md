@@ -1,4 +1,4 @@
-# polyfront-scaffold (v1.0.0)
+# polyfront-scaffold (v1.0.1)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -136,14 +136,16 @@ npx polyfront-scaffold@file:./polyfront-scaffold-{{version}}.tgz my-app --framew
 ### 1️⃣ Interactive wizard
 
 Step-by-step setup:
-
+```bash
 polyfront-scaffold --interactive
 
-### 2️⃣ Direct flags
+```
 
+### 2️⃣ Direct flags
+```bash
 Scaffold a project directly without prompts:
 polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
-
+```
 
 ## CLI Flags
 - `--framework` → `react-vite` | `react-webpack` | `angular`
@@ -193,19 +195,26 @@ polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --te
 ## Quick Start Examples
 
 # Scaffold React + Vite + MUI + TypeScript + Vitest
+```bash
 polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
+```
 
 # Scaffold Angular + Material + TypeScript
+```bash
 polyfront-scaffold my-app --framework angular --ts --ui material --store none --test-unit jest --test-e2e cypress
-
+```
 # Add tests only to an existing project
+```bash
 polyfront-scaffold existing-app --only-tests --test-unit vitest --test-e2e none
-
+```
 
 ## Recommended Defaults (Copy-Paste)
 
-For a quick React + Vite + MUI + TypeScript + Vitest project:
+```bash
+#For a quick React + Vite + MUI + TypeScript + Vitest project:
+
 polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
+```
 
 ## Local / Start directly from git source:
 ```bash
