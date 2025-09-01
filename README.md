@@ -129,7 +129,7 @@ Install the CLI globally to run it from anywhere:
 
 ```bash
 npm install -g polyfront-scaffold
-
+```
 
 ### 2️⃣ Local / no global install
 ## Run directly from source:
