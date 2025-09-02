@@ -21,3 +21,6 @@
 ## 0.0.5 — 2025-09-01
 - Improved JS scaffolding for React(Vite + Webpack) MUI, Bootstrap, and Tailwind.
 - Updated CHANGELOG with each version.
+
+## 0.0.6 — 2025-09-02
+- Ant design TS and JS scaffolding for React(Vite) MUI
