@@ -1,4 +1,4 @@
-# polyfront-scaffold (v1.0.2)
+# polyfront-scaffold (v1.0.3)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -97,6 +97,50 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
+### 🖼️ Tailwind Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/tailwind-home.png" alt="Home page (React Vite + Tailwind)" width="880"><br/>
+  <em>Home — React (Vite) + Tailwind with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/tailwind-about.png" alt="Tailwind About page" width="420">
+    <img src="docs/screenshots/tailwind-dashboard.png" alt="Tailwind Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/tailwind-profile.png" alt="Tailwind Profile page" width="420">
+    <em>Profile (React)</em>
+  </p>
+</details>
+
+### 🖼️ Antd Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/antd-home.png" alt="Home page (React Vite + Antd)" width="880"><br/>
+  <em>Home — React (Vite) + Ant design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/antd-about.png" alt="Antd About page" width="420">
+    <img src="docs/screenshots/antd-dashboard.png" alt="Antd Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/antd-profile.png" alt="Antd Profile page" width="420">
+    <em>Profile (React)</em>
+  </p>
+</details>
+
 > **How to add**: save your PNGs into `docs/screenshots/` and update the file names above.
 
 ## Installation
@@ -135,15 +179,14 @@ npx polyfront-scaffold@file:./polyfront-scaffold-{{version}}.tgz my-app --framew
 ## Usage
 ### 1️⃣ Interactive wizard
 
-Step-by-step setup:
 ```bash
+# Step-by-step setup:
 polyfront-scaffold --interactive
-
 ```
 
 ### 2️⃣ Direct flags
 ```bash
-Scaffold a project directly without prompts:
+# Scaffold a project directly without prompts:
 polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
 ```
 
@@ -209,10 +252,8 @@ polyfront-scaffold existing-app --only-tests --test-unit vitest --test-e2e none
 ```
 
 ## Recommended Defaults (Copy-Paste)
-
+# For a quick React + Vite + MUI + TypeScript + Vitest project:
 ```bash
-#For a quick React + Vite + MUI + TypeScript + Vitest project:
-
 polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
 ```
 
