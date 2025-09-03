@@ -24,3 +24,6 @@
 
 ## 0.0.6 — 2025-09-02
 - Ant design TS and JS scaffolding for React(Vite) MUI
+
+## 0.0.7 — 2025-09-03
+- Updated keywords in package.json for better npm discoverability & Improved README.md
