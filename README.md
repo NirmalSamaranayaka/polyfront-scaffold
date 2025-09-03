@@ -1,4 +1,4 @@
-# polyfront-scaffold (v1.0.3)
+# polyfront-scaffold (v1.0.4)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -37,6 +37,9 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 - **Test coverage**:
   - Generator E2E: assert generated projects **install, build, lint & test** across Node **20/22** (Vite & Webpack).
   - **Hooks & utilities**: add sample hooks (data fetching, form) + unit tests.
+- **Angular scaffolds**:
+  - Strengthening the Angular Material starter (routing, layout, and theme integration).
+  - Improving Bootstrap, Tailwind, and PrimeNG presets to ensure styles, components
 - **DX**:
   - More consistent **env** handling and route stubs.
   - Hardening style presets (Bootstrap/Tailwind/AntD/Chakra/PrimeNG).
@@ -179,14 +182,14 @@ npx polyfront-scaffold@file:./polyfront-scaffold-{{version}}.tgz my-app --framew
 ## Usage
 ### 1️⃣ Interactive wizard
 
-```bash
 # Step-by-step setup:
+```bash
 polyfront-scaffold --interactive
 ```
 
 ### 2️⃣ Direct flags
-```bash
 # Scaffold a project directly without prompts:
+```bash
 polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
 ```
 
@@ -258,14 +261,17 @@ polyfront-scaffold my-app --framework react-vite --ts --ui mui --store none --te
 ```
 
 ## Local / Start directly from git source:
-```bash
+
 # Vite + TS + MUI + Vitest
+```bash
 node ./bin/index.js portal --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none
-
+```
 # Webpack + JSX + Tailwind + Redux + Jest
+```bash
 node ./bin/index.js dashboard --framework react-webpack --js --ui tailwind --store redux --test-unit jest
-
+```
 # Angular + Material
+```bash
 node ./bin/index.js backoffice --framework angular --ui material
 ```
 
