@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.7)
+# polyfront-scaffold (v0.0.8)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -26,7 +26,7 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 > - **MUI** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Bootstrap** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Tailwind** — ✅ **fully tested & supported** (Vite + Webpack)
-> - **Ant Design** — 🧪 experimental (scaffolds; needs community testing)
+> - **Ant Design** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Chakra UI** — 🧪 experimental (scaffolds; needs community testing)
 >
 > **Angular** — uses **Angular Material** by default; Bootstrap/Tailwind/PrimeNG scaffold, but considered 🧪 experimental.
@@ -59,7 +59,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 ### 🖼️ MUI Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/mui-home.png" alt="Home page (React Vite + MUI)" width="880"><br/>
+  <img src="docs/screenshots/mui/mui-home.png" alt="Home page (React Vite + MUI)" width="880"><br/>
   <em>Home — React (Vite) + Material UI starter with router, cards, and call-to-action.</em>
 </p>
 
@@ -67,13 +67,13 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   <summary>More (placeholders you can add later)</summary>
 
   <p align="center">
-    <img src="docs/screenshots/mui-about.png" alt="MUI About page" width="420">
-    <img src="docs/screenshots/mui-dashboard.png" alt="MUI Dashboard page" width="420"><br/>
+    <img src="docs/screenshots/mui/mui-about.png" alt="MUI About page" width="420">
+    <img src="docs/screenshots/mui/mui-dashboard.png" alt="MUI Dashboard page" width="420"><br/>
     <em>About & Dashboard — example route-level screens for your app shell.</em>
   </p>
 
   <p align="center">
-    <img src="docs/screenshots/mui-profile.png" alt="MUI Profile page" width="420">
+    <img src="docs/screenshots/mui/mui-profile.png" alt="MUI Profile page" width="420">
     <em>Profile (React)</em>
   </p>
 </details>
@@ -81,7 +81,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 ### 🖼️ Bootstrap Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/bootstrap-home.png" alt="Home page (React Vite + Bootstrap)" width="880"><br/>
+  <img src="docs/screenshots/bootstrap/bootstrap-home.png" alt="Home page (React Vite + Bootstrap)" width="880"><br/>
   <em>Home — React (Vite) + Bootstrap with router, cards, and call-to-action.</em>
 </p>
 
@@ -89,13 +89,13 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   <summary>More (placeholders you can add later)</summary>
 
   <p align="center">
-    <img src="docs/screenshots/bootstrap-about.png" alt="Bootstrap About page" width="420">
-    <img src="docs/screenshots/bootstrap-dashboard.png" alt="Bootstrap Dashboard page" width="420"><br/>
+    <img src="docs/screenshots/bootstrap/bootstrap-about.png" alt="Bootstrap About page" width="420">
+    <img src="docs/screenshots/bootstrap/bootstrap-dashboard.png" alt="Bootstrap Dashboard page" width="420"><br/>
     <em>About & Dashboard — example route-level screens for your app shell.</em>
   </p>
 
   <p align="center">
-    <img src="docs/screenshots/bootstrap-profile.png" alt="Bootstrap Profile page" width="420">
+    <img src="docs/screenshots/bootstrap/bootstrap-profile.png" alt="Bootstrap Profile page" width="420">
     <em>Profile (React)</em>
   </p>
 </details>
@@ -103,7 +103,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 ### 🖼️ Tailwind Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/tailwind-home.png" alt="Home page (React Vite + Tailwind)" width="880"><br/>
+  <img src="docs/screenshots/tailwind/tailwind-home.png" alt="Home page (React Vite + Tailwind)" width="880"><br/>
   <em>Home — React (Vite) + Tailwind with router, cards, and call-to-action.</em>
 </p>
 
@@ -111,13 +111,13 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   <summary>More (placeholders you can add later)</summary>
 
   <p align="center">
-    <img src="docs/screenshots/tailwind-about.png" alt="Tailwind About page" width="420">
-    <img src="docs/screenshots/tailwind-dashboard.png" alt="Tailwind Dashboard page" width="420"><br/>
+    <img src="docs/screenshots/tailwind/tailwind-about.png" alt="Tailwind About page" width="420">
+    <img src="docs/screenshots/tailwind/tailwind-dashboard.png" alt="Tailwind Dashboard page" width="420"><br/>
     <em>About & Dashboard — example route-level screens for your app shell.</em>
   </p>
 
   <p align="center">
-    <img src="docs/screenshots/tailwind-profile.png" alt="Tailwind Profile page" width="420">
+    <img src="docs/screenshots/tailwind/tailwind-profile.png" alt="Tailwind Profile page" width="420">
     <em>Profile (React)</em>
   </p>
 </details>
@@ -125,7 +125,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 ### 🖼️ Antd Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/antd-home.png" alt="Home page (React Vite + Antd)" width="880"><br/>
+  <img src="docs/screenshots/antd/antd-home.png" alt="Home page (React Vite + Antd)" width="880"><br/>
   <em>Home — React (Vite) + Ant design with router, cards, and call-to-action.</em>
 </p>
 
@@ -133,13 +133,13 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   <summary>More (placeholders you can add later)</summary>
 
   <p align="center">
-    <img src="docs/screenshots/antd-about.png" alt="Antd About page" width="420">
-    <img src="docs/screenshots/antd-dashboard.png" alt="Antd Dashboard page" width="420"><br/>
+    <img src="docs/screenshots/antd/antd-about.png" alt="Antd About page" width="420">
+    <img src="docs/screenshots/antd/antd-dashboard.png" alt="Antd Dashboard page" width="420"><br/>
     <em>About & Dashboard — example route-level screens for your app shell.</em>
   </p>
 
   <p align="center">
-    <img src="docs/screenshots/antd-profile.png" alt="Antd Profile page" width="420">
+    <img src="docs/screenshots/antd/antd-profile.png" alt="Antd Profile page" width="420">
     <em>Profile (React)</em>
   </p>
 </details>
