@@ -23,3 +23,6 @@
 
 ## 1.0.4 — 2025-09-03
 - Updated keywords in package.json for better npm discoverability & Improved README.md
+
+## 1.0.5 — 2025-09-04
+- Ant Design scaffolding for React (TypeScript & JavaScript), fully tested with Vite and Webpack

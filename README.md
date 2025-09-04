@@ -1,4 +1,4 @@
-# polyfront-scaffold (v1.0.4)
+# polyfront-scaffold (v1.0.5)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -26,7 +26,7 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 > - **MUI** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Bootstrap** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Tailwind** — ✅ **fully tested & supported** (Vite + Webpack)
-> - **Ant Design** — 🧪 experimental (scaffolds; needs community testing)
+> - **Ant Design** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Chakra UI** — 🧪 experimental (scaffolds; needs community testing)
 >
 > **Angular** — uses **Angular Material** by default; Bootstrap/Tailwind/PrimeNG scaffold, but considered 🧪 experimental.
