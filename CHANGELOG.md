@@ -30,3 +30,6 @@
 
 ## 0.0.8 — 2025-09-04
 - Ant Design scaffolding for React (TypeScript & JavaScript), fully tested with Vite and Webpack
+
+## 0.0.9 — 2025-09-05
+- Chakra UI TS scaffolding for React(Vite) MUI

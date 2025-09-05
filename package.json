@@ -1,6 +1,6 @@
 {
   "name": "polyfront-scaffold",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
   "type": "commonjs",
   "license": "MIT",
