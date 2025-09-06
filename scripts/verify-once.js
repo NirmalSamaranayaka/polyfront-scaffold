@@ -2,6 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
+const os = require('os');
 const { execaNode, execa } = require('execa');
 const { bold, green, red, gray, cyan, yellow } = require('kleur/colors');
 
@@ -15,6 +16,15 @@ const ROOT = process.cwd();
 const OUT_ROOT = path.resolve(ROOT, 'sandbox'); // all apps land here
 const DEFAULT_CLI = path.resolve(ROOT, 'bin', 'index.js');
 const CLI_BIN = process.env.PF_CLI || DEFAULT_CLI;
+
+// === Speed & behavior toggles ==============================================
+const CONCURRENCY = Math.max(
+  1,
+  parseInt(process.env.PF_CONCURRENCY || `${Math.max(1, (os.cpus()?.length || 2) - 1)}`, 10) || 1
+);
+const FAST = (process.env.PF_FAST || 'off').toLowerCase(); // 'off' | 'fw-lang-first'
+const SKIP_TSC = /^1|true$/i.test(process.env.PF_SKIP_TSC || '');
+const SKIP_TESTS = /^1|true$/i.test(process.env.PF_SKIP_TESTS || '');
 
 // === Matrix presets =========================================================
 const MATRIX = (process.env.PF_MATRIX || 'quick').toLowerCase();
@@ -100,7 +110,7 @@ function makeJobs(specs) {
       const key  = app.toLowerCase();
       if (seen.has(key)) continue;
       seen.add(key);
-      jobs.push({ fw: s.fw, ui: s.ui, name, app, args: specToArgs(s) });
+      jobs.push({ fw: s.fw, ui: s.ui, lang: s.lang || 'ts', name, app, args: specToArgs(s) });
     }
   }
   jobs.sort((a, b) => {
@@ -154,9 +164,12 @@ function resolveFromApp(appDir, mod) {
   return require.resolve(mod, { paths: [appDir] });
 }
 
+// Try resolve from app, then ROOT, then bare (for global)
 function tryResolve(appDir, candidates) {
   for (const c of candidates) {
     try { return resolveFromApp(appDir, c); } catch {}
+    try { return require.resolve(c, { paths: [ROOT] }); } catch {}
+    try { return require.resolve(c); } catch {}
   }
   return null;
 }
@@ -166,12 +179,15 @@ function hasDeps(appDir) {
 }
 
 async function runTscIfPresent(appDir) {
+  if (SKIP_TSC) return;
   if (!fs.existsSync(path.join(appDir, 'tsconfig.json'))) return;
   let tscCli;
   try {
     tscCli = resolveFromApp(appDir, 'typescript/bin/tsc');
   } catch {
-    return; // no local TS in this template
+    // try repo root
+    try { tscCli = require.resolve('typescript/bin/tsc', { paths: [ROOT] }); }
+    catch { return; }
   }
   try {
     return await execaNode(tscCli, ['-b', '--noEmit'], { cwd: appDir, stdio: 'inherit', env: makeBaseEnv() });
@@ -186,20 +202,34 @@ function detectTooling(appDir) {
   const out = { builder: null, tester: null };
 
   if (fs.existsSync(path.join(appDir, 'angular.json'))) out.builder = 'angular';
-  try { resolveFromApp(appDir, '@angular/cli/bin/ng'); out.builder = 'angular'; } catch {}
+  try { resolveFromApp(appDir, '@angular/cli/bin/ng'); out.builder = 'angular'; } catch {
+    try { require.resolve('@angular/cli/bin/ng', { paths: [ROOT] }); out.builder = out.builder || 'angular'; } catch {}
+  }
 
-  try { resolveFromApp(appDir, 'vite/bin/vite'); out.builder = out.builder || 'vite'; } catch {}
+  try { resolveFromApp(appDir, 'vite/bin/vite'); out.builder = out.builder || 'vite'; } catch {
+    try { require.resolve('vite/bin/vite', { paths: [ROOT] }); out.builder = out.builder || 'vite'; } catch {}
+  }
   try {
     resolveFromApp(appDir, 'webpack-cli/bin/cli');
     out.builder = out.builder || 'webpack';
   } catch {
-    try { resolveFromApp(appDir, 'webpack/bin/webpack'); out.builder = out.builder || 'webpack'; } catch {}
+    try { resolveFromApp(appDir, 'webpack/bin/webpack'); out.builder = out.builder || 'webpack'; } catch {
+      try { require.resolve('webpack-cli/bin/cli', { paths: [ROOT] }); out.builder = out.builder || 'webpack'; } catch {
+        try { require.resolve('webpack/bin/webpack', { paths: [ROOT] }); out.builder = out.builder || 'webpack'; } catch {}
+      }
+    }
   }
 
   try { resolveFromApp(appDir, 'vitest/bin/vitest'); out.tester = 'vitest'; } catch {
-    try { resolveFromApp(appDir, 'vitest/vitest.mjs'); out.tester = 'vitest'; } catch {}
+    try { resolveFromApp(appDir, 'vitest/vitest.mjs'); out.tester = 'vitest'; } catch {
+      try { require.resolve('vitest/bin/vitest', { paths: [ROOT] }); out.tester = out.tester || 'vitest'; } catch {
+        try { require.resolve('vitest/vitest.mjs', { paths: [ROOT] }); out.tester = out.tester || 'vitest'; } catch {}
+      }
+    }
   }
-  try { resolveFromApp(appDir, 'jest/bin/jest'); out.tester = out.tester || 'jest'; } catch {}
+  try { resolveFromApp(appDir, 'jest/bin/jest'); out.tester = out.tester || 'jest'; } catch {
+    try { require.resolve('jest/bin/jest', { paths: [ROOT] }); out.tester = out.tester || 'jest'; } catch {}
+  }
 
   // Fallback: inspect scripts
   if (fs.existsSync(pkgPath)) {
@@ -223,7 +253,6 @@ async function runBuildDirect(appDir, tooling) {
   if (tooling === 'vite') {
     const viteBin = tryResolve(appDir, ['vite/bin/vite.js', 'vite/bin/vite.mjs', 'vite']);
     if (viteBin) return execaNode(viteBin, ['build'], { cwd: appDir, stdio: 'inherit', env });
-    // Prefer app script before npx to avoid prompts
     try { return await execa('npm', ['run', 'build', '--silent'], { cwd: appDir, stdio: 'inherit', env }); } catch {}
     return execa('npx', ['vite', 'build'], { cwd: appDir, stdio: 'inherit', env });
   }
@@ -231,7 +260,6 @@ async function runBuildDirect(appDir, tooling) {
     const bin = tryResolve(appDir, ['webpack-cli/bin/cli.js', 'webpack/bin/webpack.js', 'webpack']);
     const args = ['--mode', 'production'];
     if (bin) return execaNode(bin, args, { cwd: appDir, stdio: 'inherit', env });
-    // Prefer app script before npx to avoid webpack-cli auto-install prompts
     try { return await execa('npm', ['run', 'build', '--silent'], { cwd: appDir, stdio: 'inherit', env }); } catch {}
     return execa('npx', ['webpack', ...args], { cwd: appDir, stdio: 'inherit', env });
   }
@@ -247,6 +275,7 @@ async function runBuildDirect(appDir, tooling) {
 }
 
 async function runTestsDirect(appDir, tester) {
+  if (SKIP_TESTS) return;
   const env = makeBaseEnv();
   if (!tester) return;
   if (tester === 'vitest') {
@@ -309,32 +338,29 @@ async function handleExistingDir(appDir, appNameForLogs) {
 async function runCli(appName, args) {
   const full = [appName, ...args, '--root', OUT_ROOT, '--flat'];
   await fse.ensureDir(OUT_ROOT);
-  // ensure relative paths resolve within sandbox
   await execaNode(CLI_BIN, full, { stdio: 'inherit', env: makeBaseEnv(), cwd: OUT_ROOT });
 }
 
-async function verifyOne({ name, app, args }) {
+// The core worker for one job; supports "typecheck-only" mode in FAST runs
+async function verifyOne(job, mode = 'full') {
   const Ora = await getOra();
-  const spinner = Ora(cyan(`▶ ${name}`)).start();
+  const spinner = Ora(cyan(`▶ ${job.name}${mode === 'typecheck-only' ? ' [fast:typecheck]' : ''}`)).start();
   try {
     console.log(gray(`Output root: ${OUT_ROOT}`));
-    const outParent = OUT_ROOT;
-    const appDir = path.join(outParent, app);
+    const appDir = path.join(OUT_ROOT, job.app);
 
     await fse.ensureDir(OUT_ROOT);
     console.log(gray(`Target: ${appDir} [on-exists=${ON_EXISTS}]`));
 
-    // handle existing dir according to PF_ON_EXISTS
-    const { proceed } = await handleExistingDir(appDir, app);
+    const { proceed } = await handleExistingDir(appDir, job.app);
     if (!proceed) {
-      spinner.succeed(green(`SKIP: ${name}`));
-      return { name, ok: true };
+      spinner.succeed(green(`SKIP: ${job.name}`));
+      return { name: job.name, ok: true };
     }
 
     spinner.text = 'Scaffolding…';
-    await runCli(app, args);
+    await runCli(job.app, job.args);
 
-    // ---- Install step (skipped if deps already present)
     if (!hasDeps(appDir)) {
       preflightLog();
       console.log(yellow(`[skip] No node_modules found at ${appDir}. Skipping install due to restricted environment.`));
@@ -346,7 +372,11 @@ async function verifyOne({ name, app, args }) {
     spinner.text = 'Typechecking…';
     await runTscIfPresent(appDir);
 
-    // Detect tooling and run build/tests via direct binaries (with fallbacks)
+    if (mode === 'typecheck-only') {
+      spinner.succeed(green(`PASS (fast:typecheck): ${job.name}`));
+      return { name: job.name, ok: true, fast: true };
+    }
+
     const { builder, tester } = detectTooling(appDir);
     if (!builder) {
       const hasPkg = fs.existsSync(path.join(appDir, 'package.json'));
@@ -356,16 +386,42 @@ async function verifyOne({ name, app, args }) {
     spinner.text = `Building with ${builder}…`;
     await runBuildDirect(appDir, builder);
 
-    spinner.text = tester ? `Unit tests (${tester})…` : 'Unit tests… (none)';
+    spinner.text = tester && !SKIP_TESTS ? `Unit tests (${tester})…` : 'Unit tests… (skipped or none)';
     await runTestsDirect(appDir, tester);
 
-    spinner.succeed(green(`PASS: ${name}`));
-    return { name, ok: true };
+    spinner.succeed(green(`PASS: ${job.name}`));
+    return { name: job.name, ok: true };
   } catch (e) {
-    spinner.fail(red(`FAIL: ${name}`));
+    spinner.fail(red(`FAIL: ${job.name}`));
     console.error(red(e.shortMessage || e.message || e));
-    return { name, ok: false };
+    return { name: job.name, ok: false };
   }
+}
+
+// Simple promise pool for concurrency
+async function runWithConcurrency(jobs, modes, limit) {
+  const results = new Array(jobs.length);
+  let i = 0;
+  let active = 0;
+
+  return await new Promise(resolve => {
+    const next = () => {
+      if (i >= jobs.length && active === 0) return resolve(results);
+      while (active < limit && i < jobs.length) {
+        const idx = i++;
+        active++;
+        verifyOne(jobs[idx], modes[idx]).then(r => {
+          results[idx] = r;
+        }).catch(err => {
+          results[idx] = { name: jobs[idx].name, ok: false, err };
+        }).finally(() => {
+          active--;
+          next();
+        });
+      }
+    };
+    next();
+  });
 }
 
 (async function main() {
@@ -374,20 +430,33 @@ async function verifyOne({ name, app, args }) {
   console.log(gray(`Languages: ${LANGS.join(', ') || 'ts,js'}`));
   console.log(gray(`Order: ${ORDER.join(' > ')}`));
   console.log(gray(`UI Order: ${UI_ORDER.join(' > ')}`));
-  console.log(gray(`On-exists: ${ON_EXISTS}\n`));
+  console.log(gray(`On-exists: ${ON_EXISTS}`));
+  console.log(gray(`Concurrency: ${CONCURRENCY}`));
+  console.log(gray(`FAST mode: ${FAST}`));
+  console.log(gray(`Skip TSC: ${SKIP_TSC ? 'yes' : 'no'}  |  Skip Tests: ${SKIP_TESTS ? 'yes' : 'no'}\n`));
+
   await fse.ensureDir(OUT_ROOT);
 
-  const jobs = SETS[MATRIX] || SETS.quick;
-  const results = [];
-  for (const job of jobs) {
-    results.push(await verifyOne(job));
-    console.log();
+  const allJobs = SETS[MATRIX] || SETS.quick;
+
+  // Determine per-job mode based on FAST strategy
+  const modes = new Array(allJobs.length).fill('full');
+  if (FAST === 'fw-lang-first') {
+    const seen = new Set();
+    for (let idx = 0; idx < allJobs.length; idx++) {
+      const j = allJobs[idx];
+      const key = `${j.fw}:${j.lang}`;
+      if (!seen.has(key)) { seen.add(key); modes[idx] = 'full'; }
+      else { modes[idx] = 'typecheck-only'; }
+    }
   }
 
-  const pass = results.filter(r => r.ok).length;
+  const results = await runWithConcurrency(allJobs, modes, CONCURRENCY);
+
+  const pass = results.filter(r => r?.ok).length;
   const fail = results.length - pass;
   console.log(bold('Summary:'));
-  results.forEach(r => console.log(r.ok ? green(`PASS  ${r.name}`) : red(`FAIL  ${r.name}`)));
+  results.forEach(r => console.log(r?.ok ? green(`PASS  ${r.name}${r.fast ? ' (fast:typecheck)' : ''}`) : red(`FAIL  ${r?.name || '(unknown job)'}`)));
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
 })();
