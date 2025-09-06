@@ -29,3 +29,7 @@
 
 ## 1.0.6 — 2025-09-05
 - Chakra UI TS scaffolding for React(Vite) MUI
+
+## 1.0.7 — 2025-09-06
+- Chakra UI scaffolding for React (Webpack), and MUI JS scaffolding
+
