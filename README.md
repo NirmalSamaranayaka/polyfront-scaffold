@@ -1,4 +1,4 @@
-# polyfront-scaffold (v1.0.7)
+# polyfront-scaffold (v1.0.8)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -27,7 +27,7 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 > - **Bootstrap** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Tailwind** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Ant Design** — ✅ **fully tested & supported** (Vite + Webpack)
-> - **Chakra UI** — 🧪 experimental (scaffolds; needs community testing)
+> - **Chakra UI** — ✅ **fully tested & supported** (Vite + Webpack)
 >
 > **Angular** — uses **Angular Material** by default; Bootstrap/Tailwind/PrimeNG scaffold, but considered 🧪 experimental.
 >
@@ -140,6 +140,28 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 
   <p align="center">
     <img src="docs/screenshots/antd-profile.png" alt="Antd Profile page" width="420">
+    <em>Profile (React)</em>
+  </p>
+</details>
+
+### 🖼️ Chakra UI Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/chakra-home.png" alt="Home page (React Vite + Chakra)" width="880"><br/>
+  <em>Home — React (Vite) + Chakra design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/chakra-about.png" alt="Chakra About page" width="420">
+    <img src="docs/screenshots/chakra-dashboard.png" alt="Chakra Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/chakra-profile.png" alt="Chakra Profile page" width="420">
     <em>Profile (React)</em>
   </p>
 </details>
