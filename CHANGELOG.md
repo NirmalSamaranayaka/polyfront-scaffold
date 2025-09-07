@@ -36,3 +36,6 @@
 
 ## 0.0.10 — 2025-09-06
 - Chakra UI scaffolding for React (Webpack), and MUI JS scaffolding
+
+## 0.0.11 — 2025-09-07
+- Updated Chakra UI related screenshots and docs
