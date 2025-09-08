@@ -39,3 +39,6 @@
 
 ## 0.0.11 — 2025-09-07
 - Updated Chakra UI related screenshots and docs
+
+## 0.0.12 — 2025-09-08
+- Preparing quick base functions for end-to-end testing of scaffold UI generated data 
