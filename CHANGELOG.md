@@ -36,3 +36,7 @@
 ## 1.0.8 — 2025-09-07
 - Updated Chakra UI related screenshots and docs
 
+## 1.0.9 — 2025-09-08
+- Preparing quick base functions for end-to-end testing of scaffold UI generated data 
+
+
