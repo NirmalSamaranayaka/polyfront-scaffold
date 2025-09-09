@@ -39,4 +39,7 @@
 ## 1.0.9 — 2025-09-08
 - Preparing quick base functions for end-to-end testing of scaffold UI generated data 
 
+## 1.0.10 — 2025-09-09
+- Added full base functions and scripts to enable end-to-end testing of scaffolded UI generated data
+
 
