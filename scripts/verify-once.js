@@ -50,6 +50,19 @@ const QUICK_BASE = [
   { fw: 'angular',       ui: 'material', store: 'none', unit: 'none',   e2e: 'none', date: 'none'     },
 ];
 
+const FULL_BASE = [
+  ...['mui','bootstrap','tailwind','antd','chakra',]
+    .map(ui => ({ fw:'react-webpack', ui, store:'none', unit:'jest',   e2e:'none', date:'moment' })),
+  ...['none','redux','mobx','react-query']
+    .map(store => ({ fw:'react-webpack', ui:'chakra', store, unit:'jest',   e2e:'none', date:'moment' })),
+  ...['moment','dayjs','date-fns']
+    .map(date => ({ fw:'react-webpack', ui:'chakra', store:'none', unit:'jest', e2e:'none', date })),
+  ...['mui','chakra','tailwind']
+    .map(ui => ({ fw:'react-vite', ui, store:'none', unit:'vitest', e2e:'none', date:'date-fns' })),
+  ...['material','bootstrap','tailwind','primeng']
+    .map(ui => ({ fw:'angular', ui, store:'none', unit:'none',   e2e:'none', date:'none' })),
+];
+
 // Expand base specs across languages.
 // Angular is TS-only in practice; keep it TS regardless of PF_LANGS.
 function expandLang(spec) {
@@ -106,7 +119,8 @@ function makeJobs(specs) {
 }
 
 const SETS = {
-  quick: makeJobs(QUICK_BASE)
+  quick: makeJobs(QUICK_BASE),
+  full : makeJobs(FULL_BASE),
 };
 // ==========================================================================
 
