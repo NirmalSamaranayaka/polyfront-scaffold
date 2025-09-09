@@ -42,3 +42,6 @@
 
 ## 0.0.12 — 2025-09-08
 - Preparing quick base functions for end-to-end testing of scaffold UI generated data 
+
+## 0.0.13 — 2025-09-09
+- Added full base functions and scripts to enable end-to-end testing of scaffolded UI generated data 
