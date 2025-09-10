@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.13)
+# polyfront-scaffold (v0.0.14)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -360,6 +360,13 @@ git commit -am "chore(release): v0.0.1"
 git tag v{{version}}
 git push origin v{{version}}
 ```
+---
+
+### End-to-End Scaffolding & Verification Guide
+- This guide explains how to set up, run, and extend the end-to-end (E2E) scaffolding and verification flow for React (Vite/Webpack) and Angular applications.
+
+See **[E2E.README.md](./docs/end-to-end/E2E.README.md)** for details.
+
 ---
 
 ## License
