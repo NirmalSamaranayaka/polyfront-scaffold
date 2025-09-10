@@ -42,4 +42,6 @@
 ## 1.0.10 — 2025-09-09
 - Added full base functions and scripts to enable end-to-end testing of scaffolded UI generated data
 
+## 1.0.11 — 2025-09-10
+- Added End-to-End Scaffolding & Verification Guide(`docs/end-to-end/E2E.README.md`)
 
