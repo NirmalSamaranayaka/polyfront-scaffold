@@ -45,3 +45,6 @@
 ## 1.0.11 — 2025-09-10
 - Added End-to-End Scaffolding & Verification Guide(`docs/end-to-end/E2E.README.md`)
 
+## 1.0.12 — 2025-09-11
+- Added Scaffolding watch Verification
+
