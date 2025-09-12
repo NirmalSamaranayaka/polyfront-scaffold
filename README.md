@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.15)
+# polyfront-scaffold (v0.0.16)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold

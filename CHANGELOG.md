@@ -51,3 +51,6 @@
 
 ## 0.0.15 — 2025-09-11
 - Added Scaffolding watch Verification
+
+## 0.0.16 — 2025-09-12
+- Added Scaffolding watch conditions
