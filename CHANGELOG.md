@@ -48,3 +48,6 @@
 ## 1.0.12 — 2025-09-11
 - Added Scaffolding watch Verification
 
+## 1.0.13 — 2025-09-12
+- Added Scaffolding watch conditions
+
