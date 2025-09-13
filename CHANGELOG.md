@@ -51,3 +51,6 @@
 ## 1.0.13 — 2025-09-12
 - Added Scaffolding watch conditions
 
+## 1.0.14 — 2025-09-13
+- Added Scaffolding watch Guide(`docs/end-to-end/E2E.README.md`)
+
