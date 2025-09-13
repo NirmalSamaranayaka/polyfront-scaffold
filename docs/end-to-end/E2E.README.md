@@ -212,6 +212,89 @@ Covers all supported React UI kits, state managers, date libs, and selected Angu
 - React Vite × UI: **mui, chakra, tailwind**
 - Angular × UI: **material, bootstrap, tailwind, primeng**
 
+### Watch Mode Verification
+Besides the standard matrix verification, you can now run watch mode for specific project setups.
+This gives live feedback whenever you edit CLI source code (bin/*, lib/*, scripts/*).
+
+### Generic Watch Mode
+```
+npm run verify:watch
+```
+- Runs the CLI in watch mode across the quick matrix.
+- Rebuilds the CLI and re-verifies on every file change.
+
+### Framework-Specific Watch Mode
+You can target specific stacks instead of the full matrix. This is faster and focuses only on the setup you’re actively working on.
+
+### React (Vite + TypeScript)
+```
+npm run verify:watch:react-vite:ts:mui
+npm run verify:watch:react-vite:ts:bootstrap
+npm run verify:watch:react-vite:ts:tailwind
+npm run verify:watch:react-vite:ts:antd
+npm run verify:watch:react-vite:ts:chakra
+
+```
+
+### React (Vite + JavaScript)
+```
+npm run verify:watch:react-vite:js:mui
+npm run verify:watch:react-vite:js:bootstrap
+npm run verify:watch:react-vite:js:tailwind
+npm run verify:watch:react-vite:js:antd
+npm run verify:watch:react-vite:js:chakra
+
+```
+
+### React (Webpack + TypeScript)
+```
+npm run verify:watch:react-webpack:ts:mui
+npm run verify:watch:react-webpack:ts:bootstrap
+npm run verify:watch:react-webpack:ts:tailwind
+npm run verify:watch:react-webpack:ts:antd
+npm run verify:watch:react-webpack:ts:chakra
+
+```
+
+### React (Webpack + JavaScript)
+```
+npm run verify:watch:react-webpack:js:mui
+npm run verify:watch:react-webpack:js:bootstrap
+npm run verify:watch:react-webpack:js:tailwind
+npm run verify:watch:react-webpack:js:antd
+npm run verify:watch:react-webpack:js:chakra
+
+```
+
+### Store Variants (React Webpack + TS + Chakra)
+```
+npm run verify:watch:react-webpack:store:none
+npm run verify:watch:react-webpack:store:redux
+npm run verify:watch:react-webpack:store:mobx
+npm run verify:watch:react-webpack:store:react-query
+
+```
+
+### Date Libraries (React Webpack + TS + Chakra)
+```
+npm run verify:watch:date:moment
+npm run verify:watch:date:dayjs
+npm run verify:watch:date:date-fns
+
+```
+
+### Angular (TypeScript)
+```
+npm run verify:watch:angular:ts:material
+npm run verify:watch:angular:ts:bootstrap
+npm run verify:watch:angular:ts:tailwind
+npm run verify:watch:angular:ts:primeng
+
+```
+## Notes
+- Each script rebuilds the CLI and runs verification automatically when you save changes.
+- These scripts are faster than full matrix runs, since they only check the selected setup.
+
 > Angular remains TypeScript‑only regardless of `PF_LANGS`.
 
 ---
