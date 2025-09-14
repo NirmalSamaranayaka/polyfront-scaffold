@@ -57,3 +57,6 @@
 
 ## 0.0.17 — 2025-09-13
 - Added Scaffolding watch Guide(`docs/end-to-end/E2E.README.md`)
+
+## 0.0.18 — 2025-09-13
+- Added Scaffolding jest unit test feature and refactoring unit test
