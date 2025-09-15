@@ -58,5 +58,8 @@
 ## 0.0.17 — 2025-09-13
 - Added Scaffolding watch Guide(`docs/end-to-end/E2E.README.md`)
 
-## 0.0.18 — 2025-09-13
+## 0.0.18 — 2025-09-14
 - Added Scaffolding jest unit test feature and refactoring unit test
+
+## 0.0.19 — 2025-09-15
+- Added sandbox clearing scripts and improved the data clearing mechanism
