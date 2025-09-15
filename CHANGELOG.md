@@ -57,3 +57,6 @@
 ## 1.0.15 — 2025-09-14
 - Added Scaffolding jest unit test feature and refactoring unit test
 
+## 1.0.16 — 2025-09-15
+- Added sandbox clearing scripts and improved the data clearing mechanism
+
