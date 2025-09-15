@@ -1,6 +1,6 @@
 {
   "name": "@3nvs/polyfront-scaffold",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
   "type": "commonjs",
   "license": "MIT",
@@ -62,7 +62,7 @@
     "create": "node bin/index.js --interactive",
     "pack:dry": "npm pack --dry-run",
     "test": "node -e \"console.log('ok')\"",
-    "clean:sandbox": "node -e \"require('fs').rmSync('sandbox',{recursive:true,force:true})\"",
+    "clean:sandbox": "node scripts/cleanSandbox.mjs",
     "verify:matrix:quick": "cross-env PF_MATRIX=quick node scripts/verify-once.js",
     "verify:matrix:full": "cross-env PF_MATRIX=full node scripts/verify-once.js",
     "verify:matrix:full:ts": "cross-env PF_MATRIX=full PF_LANGS=ts node scripts/verify-once.js",
