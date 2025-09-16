@@ -63,3 +63,6 @@
 
 ## 0.0.19 — 2025-09-15
 - Added sandbox clearing scripts and improved the data clearing mechanism
+
+## 0.0.20 — 2025-09-16
+- Adding end-to-end test execution scripts for all scaffolding templates in Express
