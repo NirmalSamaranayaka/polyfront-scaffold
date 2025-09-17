@@ -63,3 +63,6 @@
 ## 1.0.17 — 2025-09-16
 - Adding end-to-end test execution scripts for all scaffolding templates in Express
 
+## 1.0.18 — 2025-09-17
+- Fixing react-vite scaffolding end to end issues
+

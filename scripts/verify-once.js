@@ -55,22 +55,37 @@ const uiIndex = ui => {
 };
 
 const QUICK_BASE = [
-  { fw: 'react-vite',    ui: 'mui',      store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-webpack', ui: 'bootstrap',   store: 'none', unit: 'jest',   e2e: 'none', date: 'moment'   },
-  { fw: 'angular',       ui: 'material', store: 'none', unit: 'none',   e2e: 'none', date: 'none'     },
+  { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+ { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+ { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' }, 
+ { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+ { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+ { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+ { fw: 'react-vite', ui: 'mui',   store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-webpack', ui: 'bootstrap',  store: 'none', unit: 'jest',  e2e: 'none', date: 'moment'  },
+  // { fw: 'angular',    ui: 'material', store: 'none', unit: 'none',  e2e: 'none', date: 'none'   },
 ];
 
 const FULL_BASE = [
-  ...['mui','bootstrap','tailwind','antd','chakra',]
-    .map(ui => ({ fw:'react-webpack', ui, store:'none', unit:'jest',   e2e:'none', date:'moment' })),
-  ...['none','redux','mobx','react-query']
-    .map(store => ({ fw:'react-webpack', ui:'chakra', store, unit:'jest',   e2e:'none', date:'moment' })),
-  ...['moment','dayjs','date-fns']
-    .map(date => ({ fw:'react-webpack', ui:'chakra', store:'none', unit:'jest', e2e:'none', date })),
-  ...['mui','chakra','tailwind']
-    .map(ui => ({ fw:'react-vite', ui, store:'none', unit:'vitest', e2e:'none', date:'date-fns' })),
-  ...['material','bootstrap','tailwind','primeng']
-    .map(ui => ({ fw:'angular', ui, store:'none', unit:'none',   e2e:'none', date:'none' })),
+  ...['mui', 'bootstrap', 'tailwind', 'antd', 'chakra',]
+    .map(ui => ({ fw: 'react-webpack', ui, store: 'none', unit: 'jest', e2e: 'none', date: 'moment' })),
+  ...['none', 'redux', 'mobx', 'react-query']
+    .map(store => ({ fw: 'react-webpack', ui: 'chakra', store, unit: 'jest', e2e: 'none', date: 'moment' })),
+  ...['moment', 'dayjs', 'date-fns']
+    .map(date => ({ fw: 'react-webpack', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date })),
+  ...['mui', 'chakra', 'tailwind']
+    .map(ui => ({ fw: 'react-vite', ui, store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' })),
+  ...['material', 'bootstrap', 'tailwind', 'primeng']
+    .map(ui => ({ fw: 'angular', ui, store: 'none', unit: 'none', e2e: 'none', date: 'none' })),
 ];
 
 // Expand base specs across languages.
@@ -87,15 +102,15 @@ function expandLang(spec) {
 function specToArgs(spec) {
   const args = [
     '--framework', spec.fw,
-    '--ui',        spec.ui,
-    '--store',     spec.store,
+    '--ui', spec.ui,
+    '--store', spec.store,
     '--test-unit', spec.unit,
-    '--test-e2e',  spec.e2e,
-    '--date',      spec.date,
+    '--test-e2e', spec.e2e,
+    '--date', spec.date,
     '--i18n', '--axios',
   ];
   if ((spec.lang || 'ts') === 'ts') args.splice(2, 0, '--ts');
-  else if (spec.lang === 'js') args.splice(2, 0, '--js'); 
+  else if (spec.lang === 'js') args.splice(2, 0, '--js');
   return args;
 }
 
@@ -106,9 +121,9 @@ function makeJobs(specs) {
   for (const b of specs) {
     for (const s of expandLang(b)) {
       const parts = [s.fw, s.lang || 'ts', s.ui, s.store, s.unit, s.e2e, s.date];
-      const app  = `app-${parts.join('-')}`;
+      const app = `app-${parts.join('-')}`;
       const name = `${s.fw} | ${s.lang || 'ts'} | ${s.ui} | ${s.store} | ${s.unit} | ${s.e2e} | ${s.date}`;
-      const key  = app.toLowerCase();
+      const key = app.toLowerCase();
       if (seen.has(key)) continue;
       seen.add(key);
       jobs.push({ fw: s.fw, ui: s.ui, lang: s.lang || 'ts', name, app, args: specToArgs(s) });
@@ -131,7 +146,7 @@ function makeJobs(specs) {
 
 const SETS = {
   quick: makeJobs(QUICK_BASE),
-  full : makeJobs(FULL_BASE),
+  full: makeJobs(FULL_BASE),
 };
 // ==========================================================================
 
@@ -168,9 +183,9 @@ function resolveFromApp(appDir, mod) {
 // Try resolve from app, then ROOT, then bare (for global)
 function tryResolve(appDir, candidates) {
   for (const c of candidates) {
-    try { return resolveFromApp(appDir, c); } catch {}
-    try { return require.resolve(c, { paths: [ROOT] }); } catch {}
-    try { return require.resolve(c); } catch {}
+    try { return resolveFromApp(appDir, c); } catch { }
+    try { return require.resolve(c, { paths: [ROOT] }); } catch { }
+    try { return require.resolve(c); } catch { }
   }
   return null;
 }
@@ -206,7 +221,7 @@ function detectTooling(appDir) {
   // ---------- Builder detection ----------
   // Vite
   try { resolveFromApp(appDir, 'vite/bin/vite'); out.builder = 'vite'; } catch {
-    try { require.resolve('vite/bin/vite', { paths: [ROOT] }); out.builder = 'vite'; } catch {}
+    try { require.resolve('vite/bin/vite', { paths: [ROOT] }); out.builder = 'vite'; } catch { }
   }
 
   // Webpack if not Vite
@@ -214,7 +229,7 @@ function detectTooling(appDir) {
     try { resolveFromApp(appDir, 'webpack-cli/bin/cli'); out.builder = 'webpack'; } catch {
       try { resolveFromApp(appDir, 'webpack/bin/webpack'); out.builder = 'webpack'; } catch {
         try { require.resolve('webpack-cli/bin/cli', { paths: [ROOT] }); out.builder = 'webpack'; } catch {
-          try { require.resolve('webpack/bin/webpack', { paths: [ROOT] }); out.builder = 'webpack'; } catch {}
+          try { require.resolve('webpack/bin/webpack', { paths: [ROOT] }); out.builder = 'webpack'; } catch { }
         }
       }
     }
@@ -224,25 +239,28 @@ function detectTooling(appDir) {
   if (!out.builder) {
     if (fs.existsSync(path.join(appDir, 'angular.json'))) out.builder = 'angular';
     try { resolveFromApp(appDir, '@angular/cli/bin/ng'); out.builder = out.builder || 'angular'; } catch {
-      try { require.resolve('@angular/cli/bin/ng', { paths: [ROOT] }); out.builder = out.builder || 'angular'; } catch {}
+      try { require.resolve('@angular/cli/bin/ng', { paths: [ROOT] }); out.builder = out.builder || 'angular'; } catch { }
     }
   }
 
   // ---------- Tester detection ----------
+  // first try to see if vitest binary exists (node_modules)
   try { resolveFromApp(appDir, 'vitest/bin/vitest'); out.tester = 'vitest'; } catch {
     try { resolveFromApp(appDir, 'vitest/vitest.mjs'); out.tester = 'vitest'; } catch {
       try { require.resolve('vitest/bin/vitest', { paths: [ROOT] }); out.tester = out.tester || 'vitest'; } catch {
-        try { require.resolve('vitest/vitest.mjs', { paths: [ROOT] }); out.tester = out.tester || 'vitest'; } catch {}
+        try { require.resolve('vitest/vitest.mjs', { paths: [ROOT] }); out.tester = out.tester || 'vitest'; } catch { }
       }
     }
   }
 
+  // then try jest binary if vitest not found
   if (!out.tester) {
     try { resolveFromApp(appDir, 'jest/bin/jest'); out.tester = 'jest'; } catch {
-      try { require.resolve('jest/bin/jest', { paths: [ROOT] }); out.tester = out.tester || 'jest'; } catch {}
+      try { require.resolve('jest/bin/jest', { paths: [ROOT] }); out.tester = out.tester || 'jest'; } catch { }
     }
   }
 
+  // If package.json exists, prefer package.json scripts/devDeps
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
     const s = pkg.scripts || {};
@@ -253,9 +271,16 @@ function detectTooling(appDir) {
       else if (s.build?.includes('ng')) out.builder = 'angular';
     }
 
-    if (!out.tester) {
-      if (s.test?.includes('vitest')) out.tester = 'vitest';
-      else if (s.test?.includes('jest')) out.tester = 'jest';
+    // IMPORTANT: prefer explicit package.json test script over the mere presence of runner binaries.
+    // This ensures projects scaffolded with "jest" actually run with jest even if vitest is installed globally or in node_modules.
+    if (s.test?.includes('jest')) {
+      out.tester = 'jest';
+    } else if (s.test?.includes('vitest')) {
+      out.tester = 'vitest';
+    } else if (!out.tester) {
+      // fallback to devDependencies hints if no script present
+      if (pkg.devDependencies?.jest || pkg.dependencies?.jest) out.tester = 'jest';
+      else if (pkg.devDependencies?.vitest || pkg.dependencies?.vitest) out.tester = 'vitest';
     }
   }
 
@@ -270,7 +295,7 @@ async function runBuildDirect(appDir, tooling) {
   if (tooling === 'vite') {
     const viteBin = tryResolve(appDir, ['vite/bin/vite.js', 'vite/bin/vite.mjs', 'vite']);
     if (viteBin) return execaNode(viteBin, ['build'], { cwd: appDir, stdio: 'inherit', env });
-    try { return await execa('npm', ['run', 'build', '--silent'], { cwd: appDir, stdio: 'inherit', env }); } catch {}
+    try { return await execa('npm', ['run', 'build', '--silent'], { cwd: appDir, stdio: 'inherit', env }); } catch { }
     return execa('npx', ['vite', 'build'], { cwd: appDir, stdio: 'inherit', env });
   }
 
@@ -278,7 +303,7 @@ async function runBuildDirect(appDir, tooling) {
     const bin = tryResolve(appDir, ['webpack-cli/bin/cli.js', 'webpack/bin/webpack.js', 'webpack']);
     const args = ['--mode', 'production'];
     if (bin) return execaNode(bin, args, { cwd: appDir, stdio: 'inherit', env });
-    try { return await execa('npm', ['run', 'build', '--silent'], { cwd: appDir, stdio: 'inherit', env }); } catch {}
+    try { return await execa('npm', ['run', 'build', '--silent'], { cwd: appDir, stdio: 'inherit', env }); } catch { }
     return execa('npx', ['webpack', ...args], { cwd: appDir, stdio: 'inherit', env });
   }
 
@@ -306,14 +331,14 @@ async function runTestsDirect(appDir, tester) {
     const bin = tryResolve(appDir, ['vitest/bin/vitest.js', 'vitest/vitest.mjs', 'vitest']);
     const args = ['run', '--reporter=dot', '--passWithNoTests', '--environment=jsdom'];
     if (bin) return execaNode(bin, args, { cwd: appDir, stdio: 'inherit', env });
-    try { return execa('npx', ['vitest', ...args], { cwd: appDir, stdio: 'inherit', env }); } catch {}
+    try { return execa('npx', ['vitest', ...args], { cwd: appDir, stdio: 'inherit', env }); } catch { }
     return execa('npm', ['run', 'test', '--silent', '--', ...args], { cwd: appDir, stdio: 'inherit', env });
   }
   if (tester === 'jest') {
     const bin = tryResolve(appDir, ['jest/bin/jest.js', 'jest']);
     const args = ['--ci', '--reporters=default'];
     if (bin) return execaNode(bin, args, { cwd: appDir, stdio: 'inherit', env });
-    try { return execa('npx', ['jest', ...args], { cwd: appDir, stdio: 'inherit', env }); } catch {}
+    try { return execa('npx', ['jest', ...args], { cwd: appDir, stdio: 'inherit', env }); } catch { }
     return execa('npm', ['run', 'test', '--silent', '--', ...args], { cwd: appDir, stdio: 'inherit', env });
   }
 }
@@ -334,7 +359,7 @@ function isDirNonEmpty(dir) {
 function tsStamp() {
   const d = new Date();
   const pad = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}_${pad(d.getHours())}-${pad(d.getMinutes())}-${pad(d.getSeconds())}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}_${pad(d.getHours())}-${pad(d.getMinutes())}-${pad(d.getSeconds())}`;
 }
 
 async function handleExistingDir(appDir, appNameForLogs) {
@@ -368,14 +393,14 @@ async function runCli(appName, args) {
 // The core worker for one job; supports "typecheck-only" mode in FAST runs
 async function verifyOne(job, mode = 'full') {
   const Ora = await getOra();
-  const spinner = Ora(cyan(`▶ ${job.name}${mode === 'typecheck-only' ? ' [fast:typecheck]' : ''}`)).start();
+  const spinner = Ora(cyan(` ${job.name}${mode === 'typecheck-only' ? ' [fast:typecheck]' : ''}`)).start();
   try {
     console.log(gray(`Output root: ${OUT_ROOT}`));
     const appDir = path.join(OUT_ROOT, job.app);
 
     await fse.ensureDir(OUT_ROOT);
     console.log(gray(`Target: ${appDir} [on-exists=${ON_EXISTS}]`));
-    
+
     // handle existing dir according to PF_ON_EXISTS
     const { proceed } = await handleExistingDir(appDir, job.app);
     if (!proceed) {
@@ -386,11 +411,11 @@ async function verifyOne(job, mode = 'full') {
     spinner.text = 'Scaffolding…';
     await runCli(job.app, job.args);
 
-// ---- Install step (skipped if deps already present)
+    // ---- Install step (skipped if deps already present)
     if (!hasDeps(appDir)) {
       preflightLog();
       console.log(yellow(`[skip] No node_modules found at ${appDir}. Skipping install due to restricted environment.`));
-      console.log(yellow(`       If needed, install manually: cd "${appDir}" && npm ci`));
+      console.log(yellow(` If needed, install manually: cd "${appDir}" && npm ci`));
     } else {
       console.log(gray(`[ok] node_modules detected. Skipping explicit npm install.`));
     }
@@ -403,7 +428,7 @@ async function verifyOne(job, mode = 'full') {
       return { name: job.name, ok: true, fast: true };
     }
 
-   const { builder, tester } = detectTooling(appDir);
+    const { builder, tester } = detectTooling(appDir);
     if (!builder) {
       const hasPkg = fs.existsSync(path.join(appDir, 'package.json'));
       throw new Error(`Could not detect builder (vite/webpack/angular). (appDir=${appDir}, package.json=${hasPkg ? 'yes' : 'no'})`);
@@ -465,7 +490,7 @@ async function runWithConcurrency(jobs, modes, limit) {
   console.log(gray(`On-exists: ${ON_EXISTS}`));
   console.log(gray(`Concurrency: ${CONCURRENCY}`));
   console.log(gray(`FAST mode: ${FAST}`));
-  console.log(gray(`Skip TSC: ${SKIP_TSC ? 'yes' : 'no'}  |  Skip Tests: ${SKIP_TESTS ? 'yes' : 'no'}\n`));
+  console.log(gray(`Skip TSC: ${SKIP_TSC ? 'yes' : 'no'} | Skip Tests: ${SKIP_TESTS ? 'yes' : 'no'}\n`));
 
   await fse.ensureDir(OUT_ROOT);
 
@@ -488,7 +513,7 @@ async function runWithConcurrency(jobs, modes, limit) {
   const pass = results.filter(r => r?.ok).length;
   const fail = results.length - pass;
   console.log(bold('Summary:'));
-  results.forEach(r => console.log(r?.ok ? green(`PASS  ${r.name}${r.fast ? ' (fast:typecheck)' : ''}`) : red(`FAIL  ${r?.name || '(unknown job)'}`)));
+  results.forEach(r => console.log(r?.ok ? green(`PASS ${r.name}${r.fast ? ' (fast:typecheck)' : ''}`) : red(`FAIL ${r?.name || '(unknown job)'}`)));
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
 })();
