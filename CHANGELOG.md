@@ -69,3 +69,6 @@
 
 ## 0.0.21 — 2025-09-17
 - Fixing react-vite scaffolding end to end issues
+
+## 0.0.22 — 2025-09-18
+- Added ent to end scaffolding documentation for fast mode
