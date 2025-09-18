@@ -1,101 +1,109 @@
-# End‑to‑End Scaffolding & Verification Guide
+# Polyfront Scaffold — Verification Guide (Aligned to `scripts/verify-once.js`) 🚀✨🧩
 
-This document explains how to **configure, install, run, and extend** the end‑to‑end (E2E) scaffolding and verification flow for React (Vite/Webpack) and Angular applications. It covers the matrix runner scripts, environment variables, supported presets, CI usage, troubleshooting, and roadmap for E2E test integration (Cypress/Playwright).
+A unified guide for the matrix runner that **scaffolds**, **typechecks**, **builds**, and **runs unit tests** across permutations (React Vite, React Webpack, Angular), UIs, languages, stores, and date libs — all inside a clean **`sandbox/`** directory. It is designed to run consistently across Windows, macOS, and Linux, with no reliance on bash‑only features. 🧪⚙️📦
 
----
-
-## Table of Contents
-- [End‑to‑End Scaffolding \& Verification Guide](#endtoend-scaffolding--verification-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [What Gets Verified](#what-gets-verified)
-  - [Supported Targets \& Presets](#supported-targets--presets)
-    - [React (Vite/Webpack)](#react-vitewebpack)
-    - [Angular](#angular)
-  - [Folder Layout \& Output](#folder-layout--output)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Quick Start](#quick-start)
-  - [Scripts](#scripts)
-  - [Environment Variables](#environment-variables)
-  - [Matrix Profiles](#matrix-profiles)
-    - [Quick Matrix](#quick-matrix)
-    - [Full Matrix](#full-matrix)
-  - [How the Runner Works](#how-the-runner-works)
-    - [1) Job Construction](#1-job-construction)
-    - [2) Scaffolding](#2-scaffolding)
-    - [3) Install (Intentionally Skipped)](#3-install-intentionally-skipped)
-    - [4) Typecheck (If Present)](#4-typecheck-if-present)
-    - [5) Build](#5-build)
-    - [6) Unit Tests](#6-unit-tests)
-    - [7) Summary \& Exit Code](#7-summary--exit-code)
-  - [CI Examples](#ci-examples)
-    - [GitHub Actions](#github-actions)
-    - [Azure Pipelines (example)](#azure-pipelines-example)
-  - [Troubleshooting](#troubleshooting)
-  - [Roadmap: E2E with Cypress/Playwright](#roadmap-e2e-with-cypressplaywright)
-  - [Contributing](#contributing)
+> **TL;DR** 👉⚡️🧭
+>
+> - Quick matrix: `npm run verify:matrix:quick`
+> - Full matrix:  `npm run verify:matrix:full`
+> - Fast & parallel: `PF_CONCURRENCY=6 PF_FAST=fw-lang-first npm run verify:matrix:full`
+> - Watch one app: `npm run verify:watch -- my-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none`
+>
+> **Note:** The current `scripts/verify-once.js` **does not (yet) run E2E**. E2E remains a roadmap item below. 🗺️⏭️🧷
 
 ---
 
-## Overview
-The E2E verification runner scaffolds apps using the project CLI, builds them, and runs unit tests. It is designed to run **consistently across Windows, macOS, and Linux** and does **not** rely on bash‑only shell features.
+## Table of Contents 📚🧭🧱
 
-- **Frameworks:** React (Vite, Webpack) and Angular
-- **Languages:** TypeScript and JavaScript (Angular is TypeScript‑only)
-- **UI kits (React):** MUI, Bootstrap, Tailwind, Ant Design, Chakra UI
-- **UI kits (Angular):** Angular Material, Bootstrap, Tailwind, PrimeNG
-- **State (React):** none, Redux, MobX, React Query
-- **HTTP:** axios for React; Angular uses HttpClient by default
-- **i18n:** lightweight placeholder by default (can add i18next later)
-- **Dates:** moment, dayjs, date‑fns, or none
-- **Testing:** Jest or Vitest (unit). E2E is reserved for Cypress/Playwright in a later phase
-- **Node:** ≥ 20.19 (CI tests Node 20 & 22 on Ubuntu/Windows/macOS)
-
-> **Goal:** Prove that every supported combination can be **scaffolded, typechecked, built, and unit‑tested** in an automated fashion.
-
----
-
-## What Gets Verified
-For each generated app, the runner attempts to:
-1. **Scaffold** an app into `sandbox/<app‑name>` using the CLI.
-2. **Typecheck** with `tsc` if a local `typescript` is present and a `tsconfig.json` exists.
-3. **Build** using the detected builder (Vite/Webpack/Angular CLI).
-4. **Run unit tests** using the detected test runner (Vitest/Jest), with sensible CI flags.
-5. **Summarize** PASS/FAIL for each job and exit non‑zero if any failed.
-
----
-
-## Supported Targets & Presets
-### React (Vite/Webpack)
-- **UI:** MUI ✅, Bootstrap ✅, Tailwind ✅, Ant Design ✅, Chakra UI ✅
-- **State:** none / Redux / MobX / React Query
-- **Dates:** moment / dayjs / date‑fns / none
-- **Unit tests:** Vitest (for Vite) or Jest (for Webpack), depending on the matrix spec
-
-### Angular
-- **Language:** TypeScript only
-- **UI:** Angular Material, Bootstrap, Tailwind, PrimeNG
-- **Dates:** none (by default)
-- **Unit tests:** none in the current matrix (build & verify only)
-
-> The matrix profiles below show exactly which combinations are exercised.
+- [Polyfront Scaffold — Verification Guide (Aligned to `scripts/verify-once.js`) 🚀✨🧩](#polyfront-scaffold--verification-guide-aligned-to-scriptsverify-oncejs-)
+  - [Table of Contents 📚🧭🧱](#table-of-contents-)
+  - [Prerequisites 🧰🧵🔧](#prerequisites-)
+  - [Install / Setup 🏗️📦🔩](#install--setup-️)
+    - [Recommended root devDependencies 🧱🧑‍💻⚙️](#recommended-root-devdependencies-️)
+    - [`package.json` scripts 📜🧩🧰](#packagejson-scripts-)
+  - [Core Concepts 🧠🗂️🔁](#core-concepts-️)
+  - [Fast Execution Toolkit 🏎️⚡️🧰](#fast-execution-toolkit-️️)
+  - [Commands 🧾🧭▶️](#commands-️)
+    - [Env var examples 🧪🖥️🔌](#env-var-examples-️)
+  - [Matrices (exact, as in code) 🧮🧰🔬](#matrices-exact-as-in-code-)
+    - [QUICK (from `QUICK_BASE`) 🫐⚡️🧩](#quick-from-quick_base-️)
+    - [FULL (from `FULL_BASE`) 🧺📚🧱](#full-from-full_base-)
+  - [Ordering 🗂️🔢🧭](#ordering-️)
+  - [Languages 🗣️📦🧪](#languages-️)
+  - [Sandbox Policy 🏝️📁🧹](#sandbox-policy-️)
+  - [Tool Detection (builder/tester) 🧰🔎📦](#tool-detection-buildertester-)
+  - [Speed \& Scalability 🚀📈🧵](#speed--scalability-)
+  - [Troubleshooting 🧰🧯🔧](#troubleshooting-)
+  - [CI Examples 🧪🛠️📦](#ci-examples-️)
+    - [GitHub Actions (full + fast) 🐙⚙️🚚](#github-actions-full--fast-️)
+    - [Azure Pipelines (quick) ☁️🧰🚀](#azure-pipelines-quick-️)
+  - [Environment Variables 🧾⚙️🧬](#environment-variables-️)
+  - [Roadmap: E2E Phase 🧭🧪🧱](#roadmap-e2e-phase-)
+  - [File Map 🗺️📁🧭](#file-map-️)
+  - [Ready to go 🎯🚀🧩](#ready-to-go-)
 
 ---
 
-## Folder Layout & Output
-- **Root:** repository root where you run the scripts
-- **Sandbox output:** `sandbox/` — each generated app is placed here, e.g. `sandbox/app-react-vite-ts-mui-none-vitest-none-date-fns`
-- **On existing output:** controlled by `PF_ON_EXISTS` (rename/overwrite/skip)
+## Prerequisites 🧰🧵🔧
 
-Recommended project structure inside each app (React):
+- **Node.js 18+** (20+ recommended; CI covers Node 20 & 22)
+- **npm** (pnpm/yarn also fine)
+- Windows (PowerShell/CMD/Git Bash), macOS, or Linux
+
+> For speed and fewer prompts, install common dev tools at the **repo root**. ⚡️🏎️📦
+
+---
+
+## Install / Setup 🏗️📦🔩
+
+### Recommended root devDependencies 🧱🧑‍💻⚙️
+
+```bash
+npm i -D vite vitest webpack webpack-cli jest @angular/cli typescript jsdom
+npm i -D cross-env execa kleur fs-extra chokidar ora
+```
+
+**Why**: the runner resolves binaries in this order: **app → repo root → npx**. Root installs avoid slow interactive prompts. 🚦🧭⚡️
+
+### `package.json` scripts 📜🧩🧰
+
+```json
+{
+  "scripts": {
+    "verify:matrix:quick": "cross-env PF_MATRIX=quick node scripts/verify-once.js",
+    "verify:matrix:full":  "cross-env PF_MATRIX=full  node scripts/verify-once.js",
+    "verify:watch":        "node scripts/watch-verify.js",
+    "clean:sandbox":       "node -e \"require('fs').rmSync('sandbox',{recursive:true,force:true})\""
+  }
+}
+```
+
+> If `cross-env` isn’t installed, set env vars inline (examples below). 🧭🪄🔧
+
+---
+
+## Core Concepts 🧠🗂️🔁
+
+- **Sandbox**: All apps are generated under **`sandbox/`**.
+- **Job name**: `app-<fw>-<lang>-<ui>-<store>-<unit>-<e2e>-<date>` (e.g. `app-react-vite-ts-mui-none-vitest-none-date-fns`).
+- **Pipeline (per app)**
+  1. Scaffold (your CLI in `bin/index.js`)
+  2. **Install is intentionally skipped** unless `**`node_modules`**` already exist
+  3. Typecheck (`tsc -b --noEmit`) — **non‑fatal** (warn & continue)
+  4. Build (Vite/Webpack/Angular auto-detected)
+  5. Unit tests (Vitest `--environment=jsdom` or Jest `--ci`)
+- **Watch mode**: Continuously regenerates **one** app while you iterate. 🔁🧩🧪
+
+**Recommended project layout (React):** 🗺️📁🏗️
+
 ```
 src/
   api/ assets/ components/ context/ features/ hooks/ i18n/
   layout/ pages/ routes/ services/ store/ styles/ tests/ utils/
 ```
 
-Environment files scaffolded:
+**Env files scaffolded:** 🧾🔐🧩
+
 ```
 .env.development
 .env.test
@@ -105,351 +113,270 @@ Environment files scaffolded:
 
 ---
 
-## Prerequisites
-- **Node.js ≥ 20.19** (runner is tested on Node 20 and 22)
-- **npm** available on PATH
-- **Network access** for initial dependency resolution when you install (the runner itself avoids automatic installs to stay hermetic)
+## Fast Execution Toolkit 🏎️⚡️🧰
 
-> The runner is OS‑agnostic and works on Windows (PowerShell or CMD), macOS, and Linux.
+- **Parallelism**: `PF_CONCURRENCY=<n>` (default = CPU cores − 1)
+- **Fast mode**: `PF_FAST=fw-lang-first` → only the first job per **(framework,language)** runs full **build + unit**; others **typecheck only**
+- **Skip steps**: `PF_SKIP_TSC=1`, `PF_SKIP_TESTS=1`
+- **Build caches** (put in templates):
+  - Webpack: `{ cache: { type: 'filesystem', cacheDirectory: '.webpack-cache' } }`
+  - Vite: `cacheDir: '.vite-cache'`
+- **Lean builds**: Vite `minify: 'esbuild', sourcemap: false`; Webpack `devtool: false`, `optimization.minimize: false`
 
 ---
 
-## Installation
-Install repository dependencies (once):
+## Commands 🧾🧭▶️
 
-```sh
-npm install
-```
-
-## Quick Start
-Run the **quick matrix** (small but representative set):
-
-```sh
+```bash
+# Quick matrix
 npm run verify:matrix:quick
-```
 
-Run the **full matrix** (all verified combos):
-
-```sh
+# Full matrix
 npm run verify:matrix:full
+
+# Watch one app
+npm run verify:watch -- \
+  my-app --framework react-vite --ts --ui mui --store none \
+  --test-unit vitest --test-e2e none --i18n --axios
 ```
 
-Run **full matrix for a single language**:
+**Single‑language runs:** 🎛️🧪🧭
 
-```sh
+```bash
 # TypeScript only
 npm run verify:matrix:full:ts
 
-# JavaScript only
+# JavaScript only (Angular remains TS)
 npm run verify:matrix:full:js
 ```
 
-Clean the **sandbox** output folder:
+**Cleanup sandbox:** 🧹📁✅
 
-```sh
+```bash
 npm run clean:sandbox
 ```
 
----
+### Env var examples 🧪🖥️🔌
 
-## Scripts
-These scripts are defined in `package.json`:
-
-```jsonc
-{
-  "scripts": {
-    "clean:sandbox": "node -e \"require('fs').rmSync('sandbox',{recursive:true,force:true})\"",
-    "verify:matrix:quick": "cross-env PF_MATRIX=quick node scripts/verify-once.js",
-    "verify:matrix:full": "cross-env PF_MATRIX=full node scripts/verify-once.js",
-    "verify:matrix:full:ts": "cross-env PF_MATRIX=full PF_LANGS=ts node scripts/verify-once.js",
-    "verify:matrix:full:js": "cross-env PF_MATRIX=full PF_LANGS=js node scripts/verify-once.js"
-  }
-}
-```
-
-> **Note:** The runner script is `scripts/verify-once.js` and uses Node APIs + `execa` to execute the CLI and toolchains.
+- **Bash/zsh/Git Bash**
+  ```bash
+  PF_CONCURRENCY=6 PF_FAST=fw-lang-first npm run verify:matrix:full
+  ```
+- **PowerShell**
+  ```powershell
+  $env:PF_CONCURRENCY="6"; $env:PF_FAST="fw-lang-first"; npm run verify:matrix:full
+  ```
+- **CMD**
+  ```cmd
+  set PF_CONCURRENCY=6 && set PF_FAST=fw-lang-first && npm run verify:matrix:full
+  ```
 
 ---
 
-## Environment Variables
-You can customize the runner with the following variables:
+## Matrices (exact, as in code) 🧮🧰🔬
 
-| Variable | Purpose | Default |
-|---|---|---|
-| `PF_MATRIX` | Which spec set to run: `quick` or `full` | `quick` |
-| `PF_LANGS` | Languages to generate: comma‑separated `ts,js` | `ts,js` |
-| `PF_ORDER` | Preferred framework execution order | `react-vite,react-webpack,angular` |
-| `PF_UI_ORDER` | Preferred UI order within a framework | `mui,bootstrap,tailwind,antd,chakra` |
-| `PF_ON_EXISTS` | Behavior if target app dir already exists: `rename` / `overwrite` / `skip` | `rename` |
-| `PF_CLI` | Path to the scaffold CLI binary (overrides default) | `bin/index.js` |
+### QUICK (from `QUICK_BASE`) 🫐⚡️🧩
 
-Additional implicit env for builds/tests:
-- `CI=1` (force CI behavior)
-- `NG_CLI_ANALYTICS=false`
-- `ADBLOCK=1`
-- `BROWSERSLIST_DISABLE_CACHE=1`
-- `NODE_ENV=development` (unless set to non‑production already)
-- `npm_config_production=false`
+- **React Vite** — TS/JS × UIs: **mui, bootstrap, tailwind, antd**; `unit: vitest`, `date: date-fns`, `e2e: none`
+- **React Webpack** — TS/JS × UIs: **bootstrap, tailwind, antd**; `unit: vitest`, `date: date-fns`, `e2e: none`
+- **React Webpack** — one extra combo: **bootstrap** with `unit: jest`, `date: moment`, `e2e: none`
+- **Angular** — TS only, **material**, `unit: none`, `e2e: none`
 
----
+> **Note:** Some additional Vite/Jest or Chakra entries are commented out in code and therefore **not** part of the Quick set. 📝🔍🧷
 
-## Matrix Profiles
-The runner expands a **base spec** into concrete jobs, then sorts by framework and UI order.
+### FULL (from `FULL_BASE`) 🧺📚🧱
 
-### Quick Matrix
-Representative smoke tests:
-```
-react‑vite    | ts | mui       | store:none | unit:vitest | e2e:none | date:date‑fns
-react‑webpack | ts | bootstrap | store:none | unit:jest   | e2e:none | date:moment
-angular       | ts | material  | store:none | unit:none   | e2e:none | date:none
-```
+- **React Webpack × UIs**: `mui, bootstrap, tailwind, antd, chakra` → `unit: jest`, `date: moment`
+- **React Webpack × Stores**: `none, redux, mobx, react-query` (UI `chakra`, `unit: jest`, `date: moment`)
+- **React Webpack × Dates**: `moment, dayjs, date-fns` (UI `chakra`, `unit: jest`)
+- **React Vite × UIs**: `mui, chakra, tailwind` (TS/JS) → `unit: vitest`, `date: date-fns`
+- **Angular × UIs**: `material, bootstrap, tailwind, primeng` (TS only)
 
-### Full Matrix
-Covers all supported React UI kits, state managers, date libs, and selected Angular UIs. Highlights:
-- React Webpack × UI: **mui, bootstrap, tailwind, antd, chakra**
-- React Webpack × State: **none, redux, mobx, react-query**
-- React Webpack × Dates: **moment, dayjs, date-fns**
-- React Vite × UI: **mui, chakra, tailwind**
-- Angular × UI: **material, bootstrap, tailwind, primeng**
-
-### Watch Mode Verification
-Besides the standard matrix verification, you can now run watch mode for specific project setups.
-This gives live feedback whenever you edit CLI source code (bin/*, lib/*, scripts/*).
-
-### Generic Watch Mode
-```
-npm run verify:watch
-```
-- Runs the CLI in watch mode across the quick matrix.
-- Rebuilds the CLI and re-verifies on every file change.
-
-### Framework-Specific Watch Mode
-You can target specific stacks instead of the full matrix. This is faster and focuses only on the setup you’re actively working on.
-
-### React (Vite + TypeScript)
-```
-npm run verify:watch:react-vite:ts:mui
-npm run verify:watch:react-vite:ts:bootstrap
-npm run verify:watch:react-vite:ts:tailwind
-npm run verify:watch:react-vite:ts:antd
-npm run verify:watch:react-vite:ts:chakra
-
-```
-
-### React (Vite + JavaScript)
-```
-npm run verify:watch:react-vite:js:mui
-npm run verify:watch:react-vite:js:bootstrap
-npm run verify:watch:react-vite:js:tailwind
-npm run verify:watch:react-vite:js:antd
-npm run verify:watch:react-vite:js:chakra
-
-```
-
-### React (Webpack + TypeScript)
-```
-npm run verify:watch:react-webpack:ts:mui
-npm run verify:watch:react-webpack:ts:bootstrap
-npm run verify:watch:react-webpack:ts:tailwind
-npm run verify:watch:react-webpack:ts:antd
-npm run verify:watch:react-webpack:ts:chakra
-
-```
-
-### React (Webpack + JavaScript)
-```
-npm run verify:watch:react-webpack:js:mui
-npm run verify:watch:react-webpack:js:bootstrap
-npm run verify:watch:react-webpack:js:tailwind
-npm run verify:watch:react-webpack:js:antd
-npm run verify:watch:react-webpack:js:chakra
-
-```
-
-### Store Variants (React Webpack + TS + Chakra)
-```
-npm run verify:watch:react-webpack:store:none
-npm run verify:watch:react-webpack:store:redux
-npm run verify:watch:react-webpack:store:mobx
-npm run verify:watch:react-webpack:store:react-query
-
-```
-
-### Date Libraries (React Webpack + TS + Chakra)
-```
-npm run verify:watch:date:moment
-npm run verify:watch:date:dayjs
-npm run verify:watch:date:date-fns
-
-```
-
-### Angular (TypeScript)
-```
-npm run verify:watch:angular:ts:material
-npm run verify:watch:angular:ts:bootstrap
-npm run verify:watch:angular:ts:tailwind
-npm run verify:watch:angular:ts:primeng
-
-```
-## Notes
-- Each script rebuilds the CLI and runs verification automatically when you save changes.
-- These scripts are faster than full matrix runs, since they only check the selected setup.
-
-> Angular remains TypeScript‑only regardless of `PF_LANGS`.
+> React variants expand across **TS** and **JS** per `PF_LANGS`. Angular remains **TS‑only**. 🧬🔁📌
 
 ---
 
-## How the Runner Works
-### 1) Job Construction
-- Base specs are defined per matrix (`quick` / `full`).
-- Each spec is expanded across languages (respecting Angular‑only TS).
-- Each job becomes an app path: `app-<fw>-<lang>-<ui>-<store>-<unit>-<e2e>-<date>`.
+## Ordering 🗂️🔢🧭
 
-### 2) Scaffolding
-- The CLI is invoked as: `node <CLI_BIN> <appName> [args...] --root sandbox --flat`.
-- Args include: `--framework`, `--ui`, `--store`, `--test-unit`, `--test-e2e`, `--date`, `--i18n`, `--axios`, and `--ts` for TypeScript.
+- **Frameworks** (default): `react-vite,react-webpack,angular` → `PF_ORDER`
+- **UIs** (default): `mui,bootstrap,tailwind,antd,chakra` → `PF_UI_ORDER`
 
-### 3) Install (Intentionally Skipped)
-- The runner **does not** auto‑install dependencies for each generated app in CI to keep runs deterministic and fast.
-- If `node_modules` **already exist** in an app, the runner will respect them.
-- To develop locally inside a generated app, run `npm ci` manually.
-
-### 4) Typecheck (If Present)
-- If `tsconfig.json` exists **and** local `typescript` resolves from the app, the runner runs `tsc -b --noEmit`.
-- Type errors are logged but **do not** stop the job (warning only).
-
-### 5) Build
-- The runner detects the builder by checking for Angular CLI, then Vite, then Webpack (or falls back to package scripts).
-- It runs the build using direct binaries when available (preferred over `npx`).
-
-### 6) Unit Tests
-- If Vitest is detected, it runs `vitest run --reporter=dot --passWithNoTests --environment=jsdom`.
-- If Jest is detected, it runs `jest --ci --reporters=default`.
-- If neither is detected, tests are skipped for that job.
-
-### 7) Summary & Exit Code
-- Each job prints `PASS` or `FAIL`.
-- The script exits with **code 1** if any job failed; **0** otherwise.
+Jobs are grouped by UI order within a framework for deterministic output. 🧱🧷🧭
 
 ---
 
-## CI Examples
-### GitHub Actions
-A cross‑OS cross‑Node matrix that runs the **quick** profile by default:
+## Languages 🗣️📦🧪
+
+- `PF_LANGS="ts,js"` by default
+- React: TS + JS (restricted by `PF_LANGS`)
+- Angular: **TS only** (enforced in code)
+
+Examples: 🧩🧪📝
+
+```bash
+PF_LANGS=ts npm run verify:matrix:full
+PF_LANGS=js npm run verify:matrix:full # Angular still TS
+```
+
+---
+
+## Sandbox Policy 🏝️📁🧹
+
+- Always writes to **`sandbox/`**
+- If target exists and non‑empty → `PF_ON_EXISTS`:
+  - `rename` (default): rename to `*-bak-YYYY-MM-DD_HH-MM-SS`
+  - `overwrite`: delete & recreate
+  - `skip`: leave as‑is, do not regenerate
+
+---
+
+## Tool Detection (builder/tester) 🧰🔎📦
+
+The runner auto‑detects tooling from app **`**`node_modules`**`** first, then falls back to **repo root**, then **`npx`**. 🧭🧱🧩
+
+- **Builder detection (order):** Vite → Webpack → Angular (presence of `angular.json` or `@angular/cli`)
+- **Tester detection (precedence):**
+  1. `package.json` **scripts**: if `test` mentions `jest` or `vitest`, that runner is chosen
+  2. `devDependencies` / `dependencies` hints
+  3. Binary presence in node\_modules or root
+
+**Special case:** If a job is **React Vite** but the detector yields **Webpack**, the build step is **skipped** (to avoid mismatched runs in atypical templates). 🧯🚫🧭
+
+---
+
+## Speed & Scalability 🚀📈🧵
+
+- `PF_CONCURRENCY=<n>` to parallelize
+- `PF_FAST=fw-lang-first` to run only one **full** job per **(framework,language)**; others **typecheck-only**
+- Skip knobs: `PF_SKIP_TSC`, `PF_SKIP_TESTS`
+- Tool resolution: app → root → npx (preinstall root devDeps to avoid prompts)
+
+---
+
+## Troubleshooting 🧰🧯🔧
+
+- **`cross-env: command not found`** → install or set envs inline
+- **Webpack wants** `webpack-cli` → `npm i -D webpack webpack-cli` at repo root
+- **Vite package not found** → `npm i -D vite`; ensure valid `vite.config.*`
+- **Vitest** `document is not defined` → install `jsdom`; don’t force `environment: 'node'`
+- **Angular** `--no-interactive` warning → remove deprecated flags in template
+- **TS default import errors** → in template `tsconfig.json`:
+  ```json
+  { "compilerOptions": { "esModuleInterop": true, "allowSyntheticDefaultImports": true } }
+  ```
+- **Folder exists & nothing happens** → check `PF_ON_EXISTS`; use `overwrite` or run `npm run clean:sandbox`
+- **Preflight logs** (helpful on Windows PATH issues) are printed before the install‑skip note 🧭🪪🧾
+
+---
+
+## CI Examples 🧪🛠️📦
+
+### GitHub Actions (full + fast) 🐙⚙️🚚
 
 ```yaml
-name: Verify Matrix (quick)
-
+name: Verify Scaffold Matrix
 on:
   push:
+    branches: [ main ]
   pull_request:
-
 jobs:
   verify:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node: [20, 22]
-        profile: [quick]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: 'npm'
-      - run: npm ci
-      - name: Run matrix
-        run: |
-          cross-env PF_MATRIX=${{ matrix.profile }} node scripts/verify-once.js
-```
-
-Run the **full** profile nightly:
-
-```yaml
-name: Verify Matrix (full)
-
-on:
-  schedule:
-    - cron: '0 2 * * *' # nightly 02:00 UTC
-
-jobs:
-  verify-full:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: 'npm' }
+        with:
+          node-version: 20
+          cache: npm
       - run: npm ci
-      - run: cross-env PF_MATRIX=full node scripts/verify-once.js
+      - run: npm i -D vite vitest webpack webpack-cli jest @angular/cli typescript jsdom
+      - name: Full matrix (parallel + fast)
+        env:
+          PF_MATRIX: full
+          PF_CONCURRENCY: '6'
+          PF_FAST: fw-lang-first
+          PF_ORDER: react-vite,react-webpack,angular
+          PF_UI_ORDER: mui,bootstrap,tailwind,antd,chakra
+          PF_LANGS: ts,js
+          PF_ON_EXISTS: rename
+        run: node scripts/verify-once.js
 ```
 
-### Azure Pipelines (example)
+### Azure Pipelines (quick) ☁️🧰🚀
+
 ```yaml
 trigger:
 - main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
+pool: { vmImage: 'ubuntu-latest' }
 steps:
 - task: NodeTool@0
-  inputs:
-    versionSpec: '22.x'
+  inputs: { versionSpec: '22.x' }
 - script: npm ci
-- script: cross-env PF_MATRIX=quick node scripts/verify-once.js
+- script: |
+    npm i -D vite vitest webpack webpack-cli jest @angular/cli typescript jsdom
+    cross-env PF_MATRIX=quick node scripts/verify-once.js
 ```
 
 ---
 
-## Troubleshooting
-**“Could not detect builder (vite/webpack/angular)”**
-- Ensure the scaffolded template includes the corresponding devDeps or `build` script names (vite/webpack/ng).
-- If templates are minimal without devDeps, add them or adjust detection logic.
+## Environment Variables 🧾⚙️🧬
 
-**Build prompts to install `webpack-cli`**
-- The runner prefers direct binaries from local deps. If missing, it falls back to `npm run build` or `npx`.
-- Add `webpack`/`webpack-cli` as devDeps in the template, or provide a `build` script.
-
-**Typechecking “failed” but job continues**
-- This is by design: type errors are logged as warnings so we can still validate build/test plumbing.
-
-**Angular analytics warnings**
-- Suppressed via `NG_CLI_ANALYTICS=false`.
-
-**Windows quoting issues**
-- Scripts are written to avoid bash‑isms. Use `cross-env` for env vars as shown.
-
-**Existing `sandbox` apps collide**
-- Control with `PF_ON_EXISTS`: `rename` (default), `overwrite`, or `skip`.
-
-**No unit tests found**
-- Vitest runs with `--passWithNoTests`. Jest simply reports zero tests. Add tests as needed.
+| Variable                     | Default                              | Purpose                                                                          |
+| ---------------------------- | ------------------------------------ | -------------------------------------------------------------------------------- |
+| `PF_MATRIX`                  | `quick`                              | Matrix preset (`quick`/`full`).                                                  |
+| `PF_LANGS`                   | `ts,js`                              | Languages for React (Angular is TS‑only).                                        |
+| `PF_ORDER`                   | `react-vite,react-webpack,angular`   | Framework execution order.                                                       |
+| `PF_UI_ORDER`                | `mui,bootstrap,tailwind,antd,chakra` | UI order within a framework.                                                     |
+| `PF_CONCURRENCY`             | CPU cores − 1                        | Parallel job count.                                                              |
+| `PF_FAST`                    | `off`                                | `fw-lang-first` = only first job per (framework,language) runs full build+tests. |
+| `PF_SKIP_TSC`                | `''`                                 | `1` to skip typechecking.                                                        |
+| `PF_SKIP_TESTS`              | `''`                                 | `1` to skip unit tests.                                                          |
+| `PF_ON_EXISTS`               | `rename`                             | `rename` / `overwrite` / `skip`.                                                 |
+| `PF_CLI`                     | `bin/index.js`                       | Path to your scaffold CLI.                                                       |
+| `PF_APP_NAME`                | `app-under-test`                     | Name used by `verify:watch`.                                                     |
+| `CI`                         | `1`                                  | CI-friendly output.                                                              |
+| `NG_CLI_ANALYTICS`           | `false`                              | Disable Angular analytics.                                                       |
+| `ADBLOCK`                    | `1`                                  | Avoid ad-dependent downloads.                                                    |
+| `BROWSERSLIST_DISABLE_CACHE` | `1`                                  | Reduce cache variability.                                                        |
+| `NODE_ENV`                   | `development`                        | Default unless templates override.                                               |
+| `npm_config_production`      | `false`                              | Keep devDeps if you install.                                                     |
 
 ---
 
-## Roadmap: E2E with Cypress/Playwright
-E2E is currently **disabled** (`e2e: none`) in all matrix specs. To add E2E:
+## Roadmap: E2E Phase 🧭🧪🧱
 
-1. **Choose a runner:** Cypress **or** Playwright.
-2. **Template hooks:**
-   - Scaffold `e2e/` folder with example spec(s).
-   - Provide app scripts: `test:e2e` and `test:e2e:headless`.
-3. **Runner integration:**
-   - Extend matrix spec to carry `e2e: cypress|playwright`.
-   - Add detection similar to unit test detection.
-   - Start the app (dev server) on a random port; wait for `200 OK`.
-   - Execute E2E runner in headless mode; collect JUnit/HTML artifacts.
-4. **Artifacts & CI:**
-   - Upload videos, screenshots, and reports on failure.
+E2E execution (Playwright/Cypress) is **not implemented** in the current `verify-once.js`. When added, the doc will include: 🛠️🧪🚀
 
-> Until this lands, the matrix verifies **scaffold → typecheck → build → unit test** only.
+- E2E runner selection (`PF_E2E_RUNNER`), port pool (`PF_E2E_PORT_RANGE`), readiness timeout (`PF_E2E_READY_MS`)
+- Server spin‑up/teardown and artifact upload guidance
+- Optional `PF_SKIP_E2E`
+
+If you’d like, I can generate a code patch that adds minimal Playwright/Cypress support with the above toggles. 🧩📦🛠️
 
 ---
 
-## Contributing
-- Extend `QUICK_BASE` / `FULL_BASE` with new presets (UI/state/date) as needed.
-- Keep presets **fast** and **deterministic**. Prefer `npm ci` and pinned versions in templates.
-- When adding E2E, ensure runs remain stable on **Windows/macOS/Linux** and under **Node 20/22**.
+## File Map 🗺️📁🧭
 
+- `scripts/verify-once.js` — matrix runner (ordering, concurrency, fast mode, skips, on‑exists, builder/tester detection)
+- `scripts/watch-verify.js` — single‑app watch pipeline
+- `bin/index.js` — your scaffold CLI
+- `sandbox/` — generated apps
+- `docs/` — place this as `docs/end-to-end/verification-guide.md` if desired
+
+---
+
+## Ready to go 🎯🚀🧩
+
+```bash
+# Quick smoke
+npm run verify:matrix:quick
+
+# Full coverage, fast & parallel
+PF_CONCURRENCY=6 PF_FAST=fw-lang-first npm run verify:matrix:full
+
+# Strict overwrite of existing sandbox apps
+PF_ON_EXISTS=overwrite npm run verify:matrix:full
+
+# Watch one app while iterating
+npm run verify:watch -- my-new-app --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none --i18n --axios
+```
