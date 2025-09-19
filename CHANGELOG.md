@@ -69,3 +69,6 @@
 ## 1.0.19 - 2025-09-18
 - Added ent to end scaffolding documentation for fast mode
 
+## 1.0.20 - 2025-09-19
+- React webpack end to end build issues fixing
+
