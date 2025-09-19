@@ -55,24 +55,34 @@ const uiIndex = ui => {
 };
 
 const QUICK_BASE = [
-  { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
-  { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
-  // { fw: 'react-vite',    ui: 'mui',      store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
-  // { fw: 'react-vite',    ui: 'bootstrap',      store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' }, 
-  // { fw: 'react-vite',    ui: 'tailwind',      store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
-  // { fw: 'react-vite',    ui: 'antd',      store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
-  // { fw: 'react-vite',    ui: 'chakra',      store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
-  // { fw: 'react-vite',    ui: 'mui',      store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
-  // { fw: 'react-webpack', ui: 'bootstrap',   store: 'none', unit: 'jest',   e2e: 'none', date: 'moment'   },
-  // { fw: 'angular',       ui: 'material', store: 'none', unit: 'none',   e2e: 'none', date: 'none'     },
+   { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  //  { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'mui', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'bootstrap', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'tailwind', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'antd', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite',  ui: 'mui',   store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite',  ui: 'bootstrap',   store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' }, 
+  // { fw: 'react-vite',  ui: 'tailwind',   store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite',  ui: 'antd',   store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite',  ui: 'chakra',   store: 'none', unit: 'none', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-vite',  ui: 'mui',   store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-webpack', ui: 'mui', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-webpack', ui: 'bootstrap', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  //  { fw: 'react-webpack', ui: 'tailwind', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  //  { fw: 'react-webpack', ui: 'antd', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+  //  { fw: 'react-webpack', ui: 'chakra', store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' },
+
+  // { fw: 'react-webpack', ui: 'mui', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  { fw: 'react-webpack', ui: 'bootstrap', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-webpack', ui: 'tailwind', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+  // { fw: 'react-webpack', ui: 'antd', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+   { fw: 'react-webpack', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date: 'date-fns' },
+   { fw: 'angular',  ui: 'material', store: 'none', unit: 'none',  e2e: 'none', date: 'none'   },
 ];
 
 const FULL_BASE = [
@@ -513,7 +523,7 @@ async function runWithConcurrency(jobs, modes, limit) {
   const pass = results.filter(r => r?.ok).length;
   const fail = results.length - pass;
   console.log(bold('Summary:'));
-  results.forEach(r => console.log(r?.ok ? green(`PASS ${r.name}${r.fast ? ' (fast:typecheck)' : ''}`) : red(`FAIL  ${r?.name || '(unknown job)'}`)));
+  results.forEach(r => console.log(r?.ok ? green(`PASS ${r.name}${r.fast ? ' (fast:typecheck)' : ''}`) : red(`FAIL ${r?.name || '(unknown job)'}`)));
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
 })();
