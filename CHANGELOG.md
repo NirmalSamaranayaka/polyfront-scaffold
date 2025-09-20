@@ -72,3 +72,5 @@
 ## 1.0.20 - 2025-09-19
 - React webpack end to end build issues fixing
 
+## 1.0.21 — 2025-09-20
+- Updating packages

@@ -1,6 +1,6 @@
 {
   "name": "@3nvs/polyfront-scaffold",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
   "type": "commonjs",
   "license": "MIT",
@@ -101,8 +101,8 @@
     "verify:watch:angular:ts:primeng": "node scripts/watch-verify.js -- --framework angular --ts --ui primeng --store none --test-unit none --test-e2e none --i18n --axios"
   },
   "devDependencies": {
-    "@angular/cli": "^20.2.2",
-    "chokidar": "^3.6.0",
+    "@angular/cli": "^20.3.2",
+    "chokidar": "^4.0.3",
     "cross-env": "^7.0.3",
     "execa": "^8.0.1",
     "fs-extra": "^11.3.1",
@@ -111,7 +111,7 @@
     "kleur": "^4.1.5",
     "ora": "^5.4.1",
     "typescript": "^5.9.2",
-    "vite": "^7.1.4",
+    "vite": "^7.1.6",
     "vitest": "^3.2.4",
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1"
