@@ -120,6 +120,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   verify-fast-matrix:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/3nvs'
     name: Verify Scaffold Matrix (Fast)
     runs-on: ubuntu-latest
     steps:
