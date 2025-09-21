@@ -1,4 +1,4 @@
-name: CI
+name: CI & Verify Scaffold Matrix
 
 on:
   push:
@@ -14,13 +14,14 @@ concurrency:
 
 jobs:
   build-test:
+    name: Build & Test Scaffold Matrix
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [20, 22]
-        framework: [react-vite] # add react-webpack, angular later if you want
+        framework: [react-vite] # extend later: react-webpack, angular
 
     env:
       APP_NAME: ci-app
@@ -30,7 +31,7 @@ jobs:
       E2E_TEST: none
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -39,14 +40,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
 
-      - name: Install scaffold deps (repo root)
+      - name: Install root dependencies
         run: npm ci
 
       - name: Make CLI executable (non-Windows)
         if: runner.os != 'Windows'
         run: chmod +x bin/index.js
 
-      # Use '=' style flags to work with older runners even if parseArgs is fixed
       - name: Scaffold app
         run: |
           node ./bin/index.js "$APP_NAME" \
@@ -60,50 +60,41 @@ jobs:
             --on-exists=overwrite
         shell: bash
 
-      # Compute expected path from your generator's layout, then fall back to search
-      - name: Resolve APP_DIR
+      - name: Resolve generated app directory
         run: |
-          if [ "${{ matrix.framework }}" = "react-vite" ]; then
-            EXPECTED="Frontends/React/Vite/$APP_NAME"
-          elif [ "${{ matrix.framework }}" = "react-webpack" ]; then
-            EXPECTED="Frontends/React/Webpack/$APP_NAME"
-          else
-            EXPECTED="Frontends/Angular/$APP_NAME"
-          fi
+          case "${{ matrix.framework }}" in
+            react-vite) EXPECTED="Frontends/React/Vite/$APP_NAME" ;;
+            react-webpack) EXPECTED="Frontends/React/Webpack/$APP_NAME" ;;
+            angular) EXPECTED="Frontends/Angular/$APP_NAME" ;;
+            *) EXPECTED="" ;;
+          esac
 
           if [ -d "$EXPECTED" ]; then
             echo "APP_DIR=$EXPECTED" >> $GITHUB_ENV
           else
-            echo "Expected path not found: $EXPECTED"
-            echo "Searching workspace for '$APP_NAME'…"
             FOUND=$(find . -type d -name "$APP_NAME" -not -path "*/node_modules/*" -print -quit)
             if [ -n "$FOUND" ]; then
-              echo "Found at: $FOUND"
               echo "APP_DIR=$FOUND" >> $GITHUB_ENV
             else
-              echo "❌ Could not locate generated app directory."
-              echo "::group::Top-level"; ls -la; echo "::endgroup::"
-              echo "::group::Frontends (3 levels)"; find Frontends -maxdepth 3 -type d | sort || true; echo "::endgroup::"
+              echo "❌ Could not locate generated app directory"
               exit 1
             fi
           fi
         shell: bash
 
-      - name: Verify generated path exists
-        run: |
-          echo "APP_DIR=${APP_DIR}"
-          test -d "${APP_DIR}" || (echo "❌ ${APP_DIR} not found"; exit 1)
+      - name: Verify app directory exists
+        run: test -d "${APP_DIR}" || (echo "❌ ${APP_DIR} not found"; exit 1)
         shell: bash
 
-      - name: Install deps in generated app
+      - name: Install app dependencies
         run: npm ci
         working-directory: ${{ env.APP_DIR }}
 
-      - name: Lint (if configured)
+      - name: Lint (optional)
         run: npm run -s lint || echo "no lint script"
         working-directory: ${{ env.APP_DIR }}
 
-      - name: Unit tests (if configured)
+      - name: Unit tests (optional)
         run: npm test --silent || echo "no tests or none selected"
         working-directory: ${{ env.APP_DIR }}
 
@@ -127,3 +118,27 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  verify-fast-matrix:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/3nvs'
+    name: Verify Scaffold Matrix (Fast)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm i -D vite vitest webpack webpack-cli jest @angular/cli typescript jsdom
+      - name: Run full matrix verification (parallel + fast)
+        env:
+          PF_MATRIX: full
+          PF_CONCURRENCY: '6'
+          PF_FAST: fw-lang-first
+          PF_ORDER: react-vite,react-webpack,angular
+          PF_UI_ORDER: mui,bootstrap,tailwind,antd,chakra
+          PF_LANGS: ts,js
+          PF_ON_EXISTS: rename
+        run: node scripts/verify-once.js
+

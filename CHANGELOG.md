@@ -75,3 +75,9 @@
 
 ## 0.0.23 — 2025-09-19
 - React webpack end to end build issues fixing
+
+## 0.0.24 — 2025-09-20
+- Updating packages
+
+## 0.0.25 — 2025-09-21
+- End to end fast execution CICD for main branch
