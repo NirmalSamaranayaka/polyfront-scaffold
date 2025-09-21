@@ -82,10 +82,8 @@ const FULL_BASE = [
     .map(store => ({ fw: 'react-webpack', ui: 'chakra', store, unit: 'jest', e2e: 'none', date: 'moment' })),
   ...['moment', 'dayjs', 'date-fns']
     .map(date => ({ fw: 'react-webpack', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date })),
-  ...['mui', 'chakra', 'tailwind']
+  ...['mui', 'bootstrap', 'tailwind', 'antd', 'chakra']
     .map(ui => ({ fw: 'react-vite', ui, store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' })),
-  ...['material', 'bootstrap', 'tailwind', 'primeng']
-    .map(ui => ({ fw: 'angular', ui, store: 'none', unit: 'none', e2e: 'none', date: 'none' })),
 ];
 
 // Expand base specs across languages.
