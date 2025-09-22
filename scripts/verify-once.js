@@ -85,16 +85,55 @@ const QUICK_BASE = [
    { fw: 'angular',  ui: 'material', store: 'none', unit: 'none',  e2e: 'none', date: 'none'   },
 ];
 
-const FULL_BASE = [
-  ...['mui', 'bootstrap', 'tailwind', 'antd', 'chakra',]
-    .map(ui => ({ fw: 'react-webpack', ui, store: 'none', unit: 'jest', e2e: 'none', date: 'moment' })),
-  ...['none', 'redux', 'mobx', 'react-query']
-    .map(store => ({ fw: 'react-webpack', ui: 'chakra', store, unit: 'jest', e2e: 'none', date: 'moment' })),
-  ...['moment', 'dayjs', 'date-fns']
-    .map(date => ({ fw: 'react-webpack', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date })),
-  ...['mui', 'chakra', 'tailwind']
-    .map(ui => ({ fw: 'react-vite', ui, store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' })),
-];
+// const FULL_BASE = [
+//   ...['mui', 'bootstrap', 'tailwind', 'antd', 'chakra',]
+//     .map(ui => ({ fw: 'react-webpack', ui, store: 'none', unit: 'jest', e2e: 'none', date: 'moment' })),
+//   ...['none', 'redux', 'mobx', 'react-query']
+//     .map(store => ({ fw: 'react-webpack', ui: 'chakra', store, unit: 'jest', e2e: 'none', date: 'moment' })),
+//   ...['moment', 'dayjs', 'date-fns']
+//     .map(date => ({ fw: 'react-webpack', ui: 'chakra', store: 'none', unit: 'jest', e2e: 'none', date })),
+//   ...['mui', 'chakra', 'tailwind']
+//     .map(ui => ({ fw: 'react-vite', ui, store: 'none', unit: 'vitest', e2e: 'none', date: 'date-fns' })),
+// ];
+
+
+const UIs = ['mui', 'bootstrap', 'tailwind', 'antd', 'chakra'];
+const STORES = ['none', 'redux', 'mobx', 'react-query'];
+const DATE_LIBS = ['date-fns', 'moment', 'dayjs'];
+
+const FULL_BASE = [];
+
+// React-Vite combinations
+for (const ui of UIs) {
+  for (const store of STORES) {
+    for (const date of DATE_LIBS) {
+      FULL_BASE.push({
+        fw: 'react-vite',
+        ui,
+        store,
+        unit: 'vitest',
+        e2e: 'none',
+        date,
+      });
+    }
+  }
+}
+
+// React-Webpack combinations
+for (const ui of UIs) {
+  for (const store of STORES) {
+    for (const date of DATE_LIBS) {
+      FULL_BASE.push({
+        fw: 'react-webpack',
+        ui,
+        store,
+        unit: 'jest',
+        e2e: 'none',
+        date,
+      });
+    }
+  }
+}
 
 // Expand base specs across languages.
 // Angular is TS-only in practice; keep it TS regardless of PF_LANGS.
