@@ -37,10 +37,10 @@ const { setupAngular } = require("../lib/angular");
   }
 
   const projectName = args._[0] || "my-app";
-  const framework = String(args.framework).toLowerCase();
-  const ui = String(args.ui).toLowerCase();
-  const pm = String(args.pm).toLowerCase();
-  const useTS = String(args.lang).toLowerCase() === "ts";
+  const framework = String(args.framework || "").toLowerCase();
+  const ui = String(args.ui || "").toLowerCase();
+  const pm = String(args.pm || "").toLowerCase();
+  const useTS = String(args.lang || "").toLowerCase() === "ts";
 
   // fail fast on bad framework (optional but recommended)
   if (!["react-vite", "react-webpack", "angular"].includes(framework)) {
@@ -49,7 +49,7 @@ const { setupAngular } = require("../lib/angular");
   }
 
   // Decide output parent folder by framework
-  const root = args.root === "." ? process.cwd() : path.resolve(process.cwd(), args.root);
+  const root = args.root === "." ? process.cwd() : path.resolve(process.cwd(), args.root || ".");
   const sub = framework === "angular"
     ? path.join("Angular")
     : (framework === "react-webpack" ? path.join("React", "Webpack") : path.join("React", "Vite"));
@@ -64,7 +64,7 @@ const { setupAngular } = require("../lib/angular");
   const { finalName, decision } = await ensureTargetDir({
     parentDir: parent,
     projectName,
-    onExists
+    onExists,
   });
 
   log(`Target resolved: ${path.join(parent, finalName)} [on-exists=${onExists}, decision=${decision}]`);
@@ -72,8 +72,8 @@ const { setupAngular } = require("../lib/angular");
   process.chdir(parent);
   const pmCfg = pkgManager(pm);
 
- if (framework === "react-vite") {
-    setupReactVite(finalName, useTS, ui, args, pmCfg);
+  if (framework === "react-vite") {
+    setupReactVite(finalName, useTS, ui, args, pmCfg, log);
     log(`✅ Done. App at: ${path.join(parent, finalName)}`);
     return;
   }
