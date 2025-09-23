@@ -81,3 +81,6 @@
 
 ## 0.0.25 — 2025-09-21
 - End to end fast execution CICD for main branch
+
+## 0.0.26 — 2025-09-23
+- Fixed React Vite scaffolding issues with the latest Vite version and performed MUI refactoring
