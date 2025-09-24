@@ -80,3 +80,6 @@
 
 ## 1.0.23 — 2025-09-23
 - Fixed React Vite scaffolding issues with the latest Vite version and performed refactoring
+
+## 1.0.24 — 2025-09-24
+- Performed refactoring on React Bootstrap scaffolding pages
