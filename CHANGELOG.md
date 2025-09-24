@@ -84,3 +84,6 @@
 
 ## 0.0.26 — 2025-09-23
 - Fixed React Vite scaffolding issues with the latest Vite version and performed MUI refactoring
+
+## 0.0.27 — 2025-09-24
+- Performed refactoring on React Bootstrap scaffolding pages
