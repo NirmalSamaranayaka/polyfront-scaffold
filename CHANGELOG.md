@@ -83,3 +83,6 @@
 
 ## 1.0.24 — 2025-09-24
 - Performed refactoring on React Bootstrap scaffolding pages
+
+## 1.0.25 — 2025-09-25
+- Performed refactoring on React Tailwind scaffolding pages
