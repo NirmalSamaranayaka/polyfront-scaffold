@@ -90,3 +90,6 @@
 
 ## 0.0.28 — 2025-09-25
 - Performed refactoring on React Tailwind scaffolding pages
+
+## 0.0.29 — 2025-09-26
+- Refactored React AntD scaffolding and applied the Adapter pattern for multi-UI page generation
