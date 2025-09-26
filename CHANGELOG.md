@@ -89,3 +89,6 @@
 
 ## 1.0.26 — 2025-09-26
 - Refactored React AntD scaffolding and applied the Adapter pattern for multi-UI page generation
+
+## 1.0.27 — 2025-09-27
+- Refactored React Chakra scaffolding and applied the Factory and Adapter pattern for multi-UI page generation
