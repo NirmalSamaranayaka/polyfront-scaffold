@@ -96,3 +96,6 @@
 
 ## 0.0.30 — 2025-09-27
 - Refactored React Chakra scaffolding and applied the Factory and Adapter pattern for multi-UI page generation
+
+## 0.0.31 — 2025-09-28
+- Refactored React Layout scaffolding pages for all UI
