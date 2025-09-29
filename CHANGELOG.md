@@ -95,3 +95,6 @@
 
 ## 1.0.28 — 2025-09-28
 - Refactored React Layout scaffolding pages for all UI
+
+## 1.0.29 — 2025-09-29
+- Base structure generation for Angular scaffolding
