@@ -102,3 +102,6 @@
 
 ## 0.0.32 — 2025-09-29
 - Base structure generation for Angular scaffolding
+
+## 0.0.33 — 2025-09-30
+- Preparing generic page content for all UIs and adding Angular Material scaffolding
