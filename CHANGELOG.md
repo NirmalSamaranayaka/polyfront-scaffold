@@ -106,5 +106,5 @@
 ## 0.0.33 — 2025-09-30
 - Preparing generic page content for all UIs and adding Angular Material scaffolding
 
-## 0.0.33 — 2025-09-30
+## 0.0.34 — 2025-10-01
 - Fix issues with Angular Material scaffolding and remove the default UI template
