@@ -104,3 +104,6 @@
 
 ## 1.0.31 — 2025-10-01
 - Fix issues with Angular Material scaffolding and remove the default UI template
+
+## 1.0.32 — 2025-10-02
+- Dynamic UI-based content and Angular Bootstrap base template scaffolding
