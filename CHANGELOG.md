@@ -111,3 +111,6 @@
 
 ## 0.0.35 — 2025-10-02
 - Dynamic UI-based content and Angular Bootstrap base template scaffolding
+
+## 0.0.36 — 2025-10-03
+- Fix Ui issues with Angular Bootstrap scaffolding 
