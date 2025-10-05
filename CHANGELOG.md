@@ -113,3 +113,6 @@
 
 ## 1.0.34 — 2025-10-04
 - Generating an Angular scaffolding template with Tailwind CSS
+
+## 1.0.35 — 2025-10-05
+- Fix issues with the Angular Material and Bootstrap scaffolding UI template
