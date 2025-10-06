@@ -1,6 +1,6 @@
 {
   "name": "@3nvs/polyfront-scaffold",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "Scaffold React (Vite or Webpack) and Angular apps with language/UI/store/testing options. Works on Windows/macOS/Linux.",
   "type": "commonjs",
   "license": "MIT",
@@ -68,7 +68,7 @@
     "verify:matrix:full:ts": "cross-env PF_MATRIX=full PF_LANGS=ts node scripts/verify-once.js",
     "verify:matrix:full:js": "cross-env PF_MATRIX=full PF_LANGS=js node scripts/verify-once.js",
     "verify:watch": "node scripts/watch-verify.js",
-     "verify:watch:react-vite:ts:mui": "node scripts/watch-verify.js -- --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none --i18n --axios",
+    "verify:watch:react-vite:ts:mui": "node scripts/watch-verify.js -- --framework react-vite --ts --ui mui --store none --test-unit vitest --test-e2e none --i18n --axios",
     "verify:watch:react-vite:ts:bootstrap": "node scripts/watch-verify.js -- --framework react-vite --ts --ui bootstrap --store none --test-unit jest --test-e2e none --i18n --axios",
     "verify:watch:react-vite:ts:tailwind": "node scripts/watch-verify.js -- --framework react-vite --ts --ui tailwind --store none --test-unit jest --test-e2e none --i18n --axios",
     "verify:watch:react-vite:ts:antd": "node scripts/watch-verify.js -- --framework react-vite --ts --ui antd --store none --test-unit jest --test-e2e none --i18n --axios",
