@@ -1,5 +1,8 @@
+## 0.0.40 — 2025-10-07
+* Enabling Light and Dark Mode and Customizing UI Styling in PrimeNG
+  
 ## 0.0.39 — 2025-10-06
-* Generating an Angular scaffolding template with PrimeNg.
+* Generating an Angular scaffolding template with PrimeNg
 
 ## 0.0.38 — 2025-10-05
 * Fix issues with the Angular Material and Bootstrap scaffolding UI template
