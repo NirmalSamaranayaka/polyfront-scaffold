@@ -1,3 +1,6 @@
+## 1.0.37 — 2025-10-07
+* Enabling Light and Dark Mode and Customizing UI Styling in PrimeNG
+
 ## 1.0.36 — 2025-10-06
 * Generating an Angular scaffolding template with PrimeNG
 
