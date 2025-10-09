@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.40)
+# polyfront-scaffold (v0.0.41)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -29,7 +29,8 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 > - **Ant Design** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Chakra UI** — ✅ **fully tested & supported** (Vite + Webpack)
 >
-> **Angular** — uses **Angular Material** by default; Bootstrap/Tailwind/PrimeNG scaffold, but considered 🧪 experimental.
+> **Angular** —  Bootstrap/Tailwind/PrimeNG scaffold, but considered 🧪 experimental.
+> - **Angular Material** — ✅ **fully tested & supported** (Angular CLI Latest)
 >
 > If you try an experimental preset and hit issues, please open an issue with steps to reproduce — or even better, send a PR. 🙌
 
@@ -56,7 +57,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 > Tip: keep alt text and short captions so the gallery is accessible.
 
 
-### 🖼️ MUI Screenshots
+### 🖼️ MUI Screenshots - React
 
 <p align="center">
   <img src="docs/screenshots/mui/mui-home.png" alt="Home page (React Vite + MUI)" width="880"><br/>
@@ -78,7 +79,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
-### 🖼️ Bootstrap Screenshots
+### 🖼️ Bootstrap Screenshots - React
 
 <p align="center">
   <img src="docs/screenshots/bootstrap/bootstrap-home.png" alt="Home page (React Vite + Bootstrap)" width="880"><br/>
@@ -100,7 +101,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
-### 🖼️ Tailwind Screenshots
+### 🖼️ Tailwind Screenshots - React
 
 <p align="center">
   <img src="docs/screenshots/tailwind/tailwind-home.png" alt="Home page (React Vite + Tailwind)" width="880"><br/>
@@ -122,7 +123,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
-### 🖼️ Antd Screenshots
+### 🖼️ Antd Screenshots - React
 
 <p align="center">
   <img src="docs/screenshots/antd/antd-home.png" alt="Home page (React Vite + Antd)" width="880"><br/>
@@ -144,7 +145,7 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
-### 🖼️ Chakra UI Screenshots
+### 🖼️ Chakra UI Screenshots - React
 
 <p align="center">
   <img src="docs/screenshots/chakra/chakra-home.png" alt="Home page (React Vite + Chakra)" width="880"><br/>
@@ -165,6 +166,29 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
     <em>Profile (React)</em>
   </p>
 </details>
+
+### 🖼️ Materal UI Screenshots - Angular
+
+<p align="center">
+  <img src="docs/screenshots/angular/material/material-home.png" alt="Home page (Angular CLI + Material UI)" width="880"><br/>
+  <em>Home — Angular CLI + MaterialUI design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/material/material-about.png" alt="Angular Material About page" width="420">
+    <img src="docs/screenshots/angular/material/material-dashboard.png" alt="Angular Material Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/material/material-profile.png" alt="Angular Material Profile page" width="420">
+    <em>Profile (Angular)</em>
+  </p>
+</details>
+
 
 > **How to add**: save your PNGs into `docs/screenshots/` and update the file names above.
 

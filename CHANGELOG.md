@@ -1,3 +1,6 @@
+## 0.0.41 — 2025-10-09
+* Added Angular Material UI scaffolding documentation
+
 ## 0.0.40 — 2025-10-07
 * Enabling Light and Dark Mode and Customizing UI Styling in PrimeNG
   
