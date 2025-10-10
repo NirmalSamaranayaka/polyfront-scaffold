@@ -1,3 +1,6 @@
+## 1.0.39 — 2025-10-10
+* Added Angular Bootstrap scaffolding documentation and material ui type issue fixes
+
 ## 1.0.38 — 2025-10-09
 * Added Angular Material UI scaffolding documentation
 
