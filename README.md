@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.41)
+# polyfront-scaffold (v0.0.42)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -185,6 +185,29 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 
   <p align="center">
     <img src="docs/screenshots/angular/material/material-profile.png" alt="Angular Material Profile page" width="420">
+    <em>Profile (Angular)</em>
+  </p>
+</details>
+
+
+### 🖼️ Bootstrap Screenshots - Angular
+
+<p align="center">
+  <img src="docs/screenshots/angular/bootstrap/bootstrap-home.png" alt="Home page (Angular CLI + Bootstrap)" width="880"><br/>
+  <em>Home — Angular CLI + Bootstrap design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/bootstrap/bootstrap-about.png" alt="Angular Bootstrap About page" width="420">
+    <img src="docs/screenshots/angular/bootstrap/bootstrap-dashboard.png" alt="Angular Bootstrap Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/bootstrap/bootstrap-profile.png" alt="Angular Bootstrap Profile page" width="420">
     <em>Profile (Angular)</em>
   </p>
 </details>
