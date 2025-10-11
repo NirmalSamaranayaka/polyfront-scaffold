@@ -1,3 +1,6 @@
+## 1.0.40 — 2025-10-11
+* Added Angular Tailwind scaffolding documentation
+
 ## 1.0.39 — 2025-10-10
 * Added Angular Bootstrap scaffolding documentation and material ui type issue fixes
 
