@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.42)
+# polyfront-scaffold (v0.0.43)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -29,8 +29,11 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 > - **Ant Design** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Chakra UI** — ✅ **fully tested & supported** (Vite + Webpack)
 >
-> **Angular** —  Bootstrap/Tailwind/PrimeNG scaffold, but considered 🧪 experimental.
+> **Angular** —  PrimeNG scaffold, but considered 🧪 experimental.
+
 > - **Angular Material** — ✅ **fully tested & supported** (Angular CLI Latest)
+> - **Bootstrap** — ✅ **fully tested & supported** (Angular CLI Latest)
+> - **Tailwind** — ✅ **fully tested & supported** (Angular CLI Latest)
 >
 > If you try an experimental preset and hit issues, please open an issue with steps to reproduce — or even better, send a PR. 🙌
 
@@ -212,6 +215,27 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
+### 🖼️ Tailwind Screenshots - Angular
+
+<p align="center">
+  <img src="docs/screenshots/angular/tailwind/tailwind-home.png" alt="Home page (Angular CLI + Tailwind)" width="880"><br/>
+  <em>Home — Angular CLI + Tailwind design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/tailwind/tailwind-about.png" alt="Angular Tailwind About page" width="420">
+    <img src="docs/screenshots/angular/tailwind/tailwind-dashboard.png" alt="Angular Tailwind Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/tailwind/tailwind-profile.png" alt="Angular Tailwind Profile page" width="420">
+    <em>Profile (Angular)</em>
+  </p>
+</details>
 
 > **How to add**: save your PNGs into `docs/screenshots/` and update the file names above.
 
