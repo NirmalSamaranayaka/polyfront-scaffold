@@ -1,3 +1,6 @@
+## 0.0.44 — 2025-10-12
+* Added Angular PrimeNg scaffolding documentation and Fixing light mode styling issues
+
 ## 0.0.43 — 2025-10-11
 * Added Angular Tailwind scaffolding documentation
 
