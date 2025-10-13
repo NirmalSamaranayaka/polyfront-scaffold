@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.43)
+# polyfront-scaffold (v0.0.44)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -29,11 +29,12 @@ Scaffold **React** (Vite or Webpack) and **Angular** apps with:
 > - **Ant Design** — ✅ **fully tested & supported** (Vite + Webpack)
 > - **Chakra UI** — ✅ **fully tested & supported** (Vite + Webpack)
 >
-> **Angular** —  PrimeNG scaffold, but considered 🧪 experimental.
+> **Angular**
 
 > - **Angular Material** — ✅ **fully tested & supported** (Angular CLI Latest)
 > - **Bootstrap** — ✅ **fully tested & supported** (Angular CLI Latest)
 > - **Tailwind** — ✅ **fully tested & supported** (Angular CLI Latest)
+> - **PrimeNG dark & light theme** — ✅ **fully tested & supported** (Angular CLI Latest)
 >
 > If you try an experimental preset and hit issues, please open an issue with steps to reproduce — or even better, send a PR. 🙌
 
@@ -233,6 +234,28 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 
   <p align="center">
     <img src="docs/screenshots/angular/tailwind/tailwind-profile.png" alt="Angular Tailwind Profile page" width="420">
+    <em>Profile (Angular)</em>
+  </p>
+</details>
+
+### 🖼️ PrimeNG Screenshots - Angular
+
+<p align="center">
+  <img src="docs/screenshots/angular/primeng/primeng-home.png" alt="Home page (Angular CLI + PrimeNG)" width="880"><br/>
+  <em>Home — Angular CLI + PrimeNG design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/primeng/primeng-about.png" alt="Angular PrimeNG About page" width="420">
+    <img src="docs/screenshots/angular/primeng/primeng-dashboard.png" alt="Angular PrimeNG Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/primeng/primeng-profile.png" alt="Angular PrimeNG Profile page" width="420">
     <em>Profile (Angular)</em>
   </p>
 </details>
