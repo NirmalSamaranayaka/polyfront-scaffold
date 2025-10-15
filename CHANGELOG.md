@@ -1,3 +1,6 @@
+## 1.0.43 — 2025-10-15
+* Added Angular PrimeNg dark mode scaffolding documentation
+
 ## 1.0.42 — 2025-10-14
 * Fix issues with the Angular tailwind scaffolding UI template
 
