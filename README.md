@@ -1,4 +1,4 @@
-# polyfront-scaffold (v0.0.45)
+# polyfront-scaffold (v0.0.46)
 
 Author: **Nirmal Samaranayaka** <nirmal.fullstack@gmail.com>  
 Repo: https://github.com/NirmalSamaranayaka/polyfront-scaffold
@@ -238,10 +238,10 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
   </p>
 </details>
 
-### 🖼️ PrimeNG Screenshots - Angular
+### 🖼️ PrimeNG Light Theme Screenshots - Angular
 
 <p align="center">
-  <img src="docs/screenshots/angular/primeng/primeng-home.png" alt="Home page (Angular CLI + PrimeNG)" width="880"><br/>
+  <img src="docs/screenshots/angular/primeng/primeng-home.png" alt="Home page (Angular CLI + PrimeNG light theme)" width="880"><br/>
   <em>Home — Angular CLI + PrimeNG design with router, cards, and call-to-action.</em>
 </p>
 
@@ -256,6 +256,28 @@ See **[ROADMAP.md](./ROADMAP.md)** for details.
 
   <p align="center">
     <img src="docs/screenshots/angular/primeng/primeng-profile.png" alt="Angular PrimeNG Profile page" width="420">
+    <em>Profile (Angular)</em>
+  </p>
+</details>
+
+### 🖼️ PrimeNG Dark Theme Screenshots - Angular
+
+<p align="center">
+  <img src="docs/screenshots/angular/primeng/primeng-home-dark.png" alt="Home page (Angular CLI + PrimeNG dark theme)" width="880"><br/>
+  <em>Home — Angular CLI + PrimeNG design with router, cards, and call-to-action.</em>
+</p>
+
+<details>
+  <summary>More (placeholders you can add later)</summary>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/primeng/primeng-about-dark.png" alt="Angular PrimeNG About page" width="420">
+    <img src="docs/screenshots/angular/primeng/primeng-dashboard-dark.png" alt="Angular PrimeNG Dashboard page" width="420"><br/>
+    <em>About & Dashboard — example route-level screens for your app shell.</em>
+  </p>
+
+  <p align="center">
+    <img src="docs/screenshots/angular/primeng/primeng-profile-dark.png" alt="Angular PrimeNG Profile page" width="420">
     <em>Profile (Angular)</em>
   </p>
 </details>
