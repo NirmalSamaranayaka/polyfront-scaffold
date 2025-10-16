@@ -1,3 +1,6 @@
+## 0.0.47 — 2025-10-16
+* Added Angular PrimeNG ui type issue fixes
+
 ## 0.0.46 — 2025-10-15
 * Added Angular PrimeNg dark mode scaffolding documentation
 
