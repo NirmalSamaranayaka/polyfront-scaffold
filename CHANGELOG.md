@@ -1,3 +1,6 @@
+## 0.0.48 — 2025-10-17
+* Added Angular, React Vite and webpack FULL BASE matrix for e2e
+
 ## 0.0.47 — 2025-10-16
 * Added Angular PrimeNG ui type issue fixes
 
