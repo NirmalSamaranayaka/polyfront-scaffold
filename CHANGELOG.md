@@ -1,3 +1,6 @@
+## 1.0.46 — 2025-10-18
+* Updating roadmap completion details
+
 ## 1.0.45 — 2025-10-17
 * Added Angular, React Vite and webpack FULL BASE matrix for e2e
 
